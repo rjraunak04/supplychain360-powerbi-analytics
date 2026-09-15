@@ -364,3 +364,142 @@ RETURN
 - `USERELATIONSHIP()` is used for inactive role-playing relationships.
 - Measures are designed to respond to dimension filters and slicers.
 - Power BI KPI values should reconcile with the SQL benchmark queries in `sql/validation/07_executive_kpi_benchmark.sql`.
+
+
+---
+
+## 9. Inventory Intelligence Measures
+
+### Reorder Gap Units
+```DAX
+Reorder Gap Units =
+SUMX(
+    FILTER(
+        'Fact Inventory',
+        'Fact Inventory'[Quantity On Hand] <= 'Fact Inventory'[Reorder Level]
+    ),
+    MAX('Fact Inventory'[Gap To Target], 0)
+)
+```
+
+### Reorder Gap Value
+```DAX
+Reorder Gap Value =
+SUMX(
+    FILTER(
+        'Fact Inventory',
+        'Fact Inventory'[Quantity On Hand] <= 'Fact Inventory'[Reorder Level]
+    ),
+    MAX('Fact Inventory'[Gap To Target], 0) *
+    'Fact Inventory'[Last Cost Price]
+)
+```
+
+### Excess Inventory Units
+```DAX
+Excess Inventory Units =
+SUMX(
+    FILTER(
+        'Fact Inventory',
+        'Fact Inventory'[Quantity On Hand] > 'Fact Inventory'[Target Stock Level]
+    ),
+    'Fact Inventory'[Quantity On Hand] -
+    'Fact Inventory'[Target Stock Level]
+)
+```
+
+### Excess Inventory Value
+```DAX
+Excess Inventory Value =
+SUMX(
+    FILTER(
+        'Fact Inventory',
+        'Fact Inventory'[Quantity On Hand] > 'Fact Inventory'[Target Stock Level]
+    ),
+    (
+        'Fact Inventory'[Quantity On Hand] -
+        'Fact Inventory'[Target Stock Level]
+    ) * 'Fact Inventory'[Last Cost Price]
+)
+```
+
+### Average Inventory Value per SKU
+```DAX
+Average Inventory Value per SKU =
+DIVIDE(
+    [Total Inventory Value],
+    [Inventory SKUs]
+)
+```
+
+### Stock Movement Volume
+```DAX
+Stock Movement Volume =
+[Stock In Quantity] + [Stock Out Quantity]
+```
+
+### Top 10 Inventory Value
+```DAX
+Top 10 Inventory Value =
+VAR ProductRank =
+    RANKX(
+        ALLSELECTED('Dim Stock Item'[Stock Item]),
+        [Total Inventory Value],
+        ,
+        DESC,
+        DENSE
+    )
+RETURN
+    IF(ProductRank <= 10, [Total Inventory Value])
+```
+
+### Top 10 Reorder Gap Units
+```DAX
+Top 10 Reorder Gap Units =
+VAR ProductRank =
+    RANKX(
+        ALLSELECTED('Dim Stock Item'[Stock Item]),
+        [Reorder Gap Units],
+        ,
+        DESC,
+        DENSE
+    )
+RETURN
+    IF(
+        ProductRank <= 10 && [Reorder Gap Units] > 0,
+        [Reorder Gap Units]
+    )
+```
+
+### Top 10 Excess Inventory Value
+```DAX
+Top 10 Excess Inventory Value =
+VAR ProductRank =
+    RANKX(
+        ALLSELECTED('Dim Stock Item'[Stock Item]),
+        [Excess Inventory Value],
+        ,
+        DESC,
+        DENSE
+    )
+RETURN
+    IF(
+        ProductRank <= 10 && [Excess Inventory Value] > 0,
+        [Excess Inventory Value]
+    )
+```
+
+### Top 10 Movement Volume
+```DAX
+Top 10 Movement Volume =
+VAR ProductRank =
+    RANKX(
+        ALLSELECTED('Dim Stock Item'[Stock Item]),
+        [Stock Movement Volume],
+        ,
+        DESC,
+        DENSE
+    )
+RETURN
+    IF(ProductRank <= 10, [Stock Movement Volume])
+```
