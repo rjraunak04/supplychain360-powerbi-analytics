@@ -22,9 +22,12 @@ SUM('Fact Inventory'[Quantity On Hand])
 ### Stockout SKUs
 ```DAX
 Stockout SKUs =
-CALCULATE(
-    DISTINCTCOUNT('Fact Inventory'[Stock Item Key]),
-    'Fact Inventory'[Inventory Status] = "Stockout"
+COALESCE(
+    CALCULATE(
+        DISTINCTCOUNT('Fact Inventory'[Stock Item Key]),
+        'Fact Inventory'[Inventory Status] = "Stockout"
+    ),
+    0
 )
 ```
 
@@ -314,6 +317,40 @@ SUM('Fact Stock Movement'[Quantity])
 ```DAX
 Movement Events =
 COUNTROWS('Fact Stock Movement')
+```
+
+---
+
+## 8. Executive Dashboard Ranking Measures
+
+### Top 10 Product Units Sold
+```DAX
+Top 10 Product Units Sold =
+VAR ProductRank =
+    RANKX(
+        ALLSELECTED('Dim Stock Item'[Stock Item]),
+        [Units Sold],
+        ,
+        DESC,
+        DENSE
+    )
+RETURN
+    IF(ProductRank <= 10, [Units Sold])
+```
+
+### Top 10 State Revenue
+```DAX
+Top 10 State Revenue =
+VAR StateRank =
+    RANKX(
+        ALLSELECTED('Dim City'[State Province]),
+        [Total Revenue],
+        ,
+        DESC,
+        DENSE
+    )
+RETURN
+    IF(StateRank <= 10, [Total Revenue])
 ```
 
 ---
