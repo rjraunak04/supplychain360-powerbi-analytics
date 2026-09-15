@@ -12,7 +12,8 @@ Enterprise-grade Power BI supply-chain control tower built on Microsoft Wide Wor
 - ✅ Centralized DAX measure table
 - ✅ PBIP / TMDL model source
 - ✅ Stage 08 Executive Control Tower
-- ⏳ Domain dashboard pages
+- ✅ Inventory Intelligence + Inventory Risk Detail
+- ⏳ Remaining domain dashboard pages
 - ⏳ Power BI Service deployment
 
 ## Core Analytics Areas
