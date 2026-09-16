@@ -82,7 +82,7 @@ table 'Dim Employee'
 		mode: import
 		source =
 				let
-				    Source = Sql.Database("localhost", "WideWorldImportersDW"),
+				    Source = Sql.Database(ServerName, DatabaseName),
 				    Dimension_Employee = Source{[Schema="Dimension",Item="Employee"]}[Data]
 				in
 				    Dimension_Employee
