@@ -1,0 +1,235 @@
+table 'Fact Order Fulfillment'
+	lineageTag: 38d7a03a-eb6e-4110-9614-f9d77cacc0da
+
+	column 'Order Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 984e7da3-94d4-4b95-a1f9-9afebc003806
+		summarizeBy: none
+		sourceColumn: Order Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 9fcc80f9-1fa7-4b64-b181-5357c493da61
+		summarizeBy: none
+		sourceColumn: Customer Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Stock Item Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 82d97a7c-3274-4a3f-9ec8-c1ba962dd22c
+		summarizeBy: none
+		sourceColumn: Stock Item Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'City Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: City Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Salesperson Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Salesperson Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Picker Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Picker Key
+
+		annotation SummarizationSetBy = Automatic
+
+
+	column 'Order Date Key'
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 3a0d55b0-e5b4-403b-9283-a7aea978a649
+		summarizeBy: none
+		sourceColumn: Order Date Key
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Picked Date Key'
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 905ca10d-37c4-4aa5-996a-bf087e725c40
+		summarizeBy: none
+		sourceColumn: Picked Date Key
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'WWI Order ID'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 5daa5bf8-4ed5-4333-8f3b-a19005794ad3
+		summarizeBy: none
+		sourceColumn: WWI Order ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'WWI Backorder ID'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: a57efe2e-02b5-4f38-98bb-43c9bf36311d
+		summarizeBy: none
+		sourceColumn: WWI Backorder ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 487df59a-e2d5-45dc-ba75-5d59d97170c5
+		summarizeBy: sum
+		sourceColumn: Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Price'
+		dataType: double
+		lineageTag: 0096e593-067b-4c28-89cc-ec17e352189b
+		summarizeBy: sum
+		sourceColumn: Unit Price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Tax Rate'
+		dataType: double
+		lineageTag: 486efed7-2321-4703-aecc-2f08c61dc28c
+		summarizeBy: sum
+		sourceColumn: Tax Rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total Excluding Tax'
+		dataType: double
+		lineageTag: 50800948-f81f-405a-9ba3-066d668c7d52
+		summarizeBy: sum
+		sourceColumn: Total Excluding Tax
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Tax Amount'
+		dataType: double
+		lineageTag: 67e398c6-2d9e-4b85-8686-21bf2c7b418e
+		summarizeBy: sum
+		sourceColumn: Tax Amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total Including Tax'
+		dataType: double
+		lineageTag: deda86b3-fbd9-4b01-bb93-18dd8a6f3ba7
+		summarizeBy: sum
+		sourceColumn: Total Including Tax
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Is Backordered'
+		dataType: int64
+		formatString: 0
+		lineageTag: 1094a936-d9d8-4848-b96c-eccb4a2d3aca
+		summarizeBy: sum
+		sourceColumn: Is Backordered
+
+		annotation SummarizationSetBy = Automatic
+
+
+	column 'Backordered Quantity'
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: Backordered Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Is Picked'
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: Is Picked
+
+		annotation SummarizationSetBy = Automatic
+
+
+	column 'Days To Pick'
+		dataType: int64
+		formatString: 0
+		lineageTag: 41342097-8bc1-4dad-9825-7ab7959fe949
+		summarizeBy: none
+		sourceColumn: Days To Pick
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fulfillment Status'
+		dataType: string
+		lineageTag: cb0fa9dc-f183-4da2-9f31-8cc583021650
+		summarizeBy: none
+		sourceColumn: Fulfillment Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Picking Speed Category'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Picking Speed Category
+
+		annotation SummarizationSetBy = Automatic
+
+
+	partition 'Fact Order Fulfillment' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("localhost", "WideWorldImportersDW"),
+				    Data = Source{[Schema="Fact",Item="Order"]}[Data],
+				    SelectedColumns = Table.SelectColumns(Data, {"Order Key", "City Key", "Customer Key", "Stock Item Key", "Salesperson Key", "Picker Key", "Order Date Key", "Picked Date Key", "WWI Order ID", "WWI Backorder ID", "Quantity", "Unit Price", "Tax Rate", "Total Excluding Tax", "Tax Amount", "Total Including Tax"}),
+				    AddedBackordered = Table.AddColumn(SelectedColumns, "Is Backordered", each if [WWI Backorder ID] = null then 0 else 1, Int64.Type),
+				    AddedBackorderedQty = Table.AddColumn(AddedBackordered, "Backordered Quantity", each if [WWI Backorder ID] = null then 0 else [Quantity], Int64.Type),
+				    AddedPicked = Table.AddColumn(AddedBackorderedQty, "Is Picked", each if [Picked Date Key] = null then 0 else 1, Int64.Type),
+				    AddedDaysToPick = Table.AddColumn(AddedPicked, "Days To Pick", each if [Picked Date Key] = null or [Order Date Key] = null then null else Duration.Days(Date.From([Picked Date Key]) - Date.From([Order Date Key])), Int64.Type),
+				    AddedStatus = Table.AddColumn(AddedDaysToPick, "Fulfillment Status", each if [WWI Backorder ID] <> null then "Backordered" else if [Picked Date Key] = null then "Pending Pick" else "Picked", type text),
+				    AddedSpeed = Table.AddColumn(AddedStatus, "Picking Speed Category", each if [Picked Date Key] = null then "Not Completed" else if [Days To Pick] = 0 then "Same Day" else if [Days To Pick] = 1 then "Next Day" else "2+ Days", type text)
+				in
+				    AddedSpeed
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table

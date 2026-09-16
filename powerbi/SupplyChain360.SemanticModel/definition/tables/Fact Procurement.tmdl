@@ -1,0 +1,141 @@
+table 'Fact Procurement'
+	lineageTag: d8150eeb-dc25-4979-93e8-44e2f2c21ded
+
+	column 'Purchase Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 11bd4d52-145a-4d9b-870b-dc334ca8ec2e
+		summarizeBy: none
+		sourceColumn: Purchase Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Date Key'
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 5427e297-0c80-4011-b9e7-7ae0efb228a5
+		summarizeBy: none
+		sourceColumn: Date Key
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Supplier Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 1d7ea59f-1e8d-4b61-9ec5-7ba2abb6d596
+		summarizeBy: none
+		sourceColumn: Supplier Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Stock Item Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: e875acb2-d8dc-4c10-b574-d3439c855cd4
+		summarizeBy: none
+		sourceColumn: Stock Item Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'WWI Purchase Order ID'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 289b3959-ff29-438f-8c53-31f6a2e4c2c5
+		summarizeBy: none
+		sourceColumn: WWI Purchase Order ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ordered Outers'
+		dataType: int64
+		formatString: 0
+		lineageTag: b5b25c21-b611-4813-bb47-ccec7cd9c1a3
+		summarizeBy: sum
+		sourceColumn: Ordered Outers
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ordered Quantity'
+		dataType: int64
+		formatString: 0
+		lineageTag: 996f3dd8-c866-46d9-85c8-47292c49a457
+		summarizeBy: sum
+		sourceColumn: Ordered Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Received Outers'
+		dataType: int64
+		formatString: 0
+		lineageTag: 7882c85f-88c6-4982-bb91-cf87ad97a59a
+		summarizeBy: sum
+		sourceColumn: Received Outers
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Received Quantity'
+		dataType: int64
+		formatString: 0
+		lineageTag: 176f14e7-7265-4f9a-a0cb-700e5f3494cd
+		summarizeBy: sum
+		sourceColumn: Received Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Outstanding Quantity'
+		dataType: int64
+		formatString: 0
+		lineageTag: f3a3170a-eda3-4404-af75-553555a920ec
+		summarizeBy: sum
+		sourceColumn: Outstanding Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Receipt Fulfillment Percent'
+		dataType: double
+		lineageTag: 26838f55-f45e-4af5-9825-7483c4413c8f
+		summarizeBy: sum
+		sourceColumn: Receipt Fulfillment Percent
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Is Order Finalized'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 80b0d5de-4572-4ec8-b8da-96c976426f3c
+		summarizeBy: none
+		sourceColumn: Is Order Finalized
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Receipt Status'
+		dataType: string
+		lineageTag: f5da94c3-48c4-41e3-983a-7efef460269d
+		summarizeBy: none
+		sourceColumn: Receipt Status
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Fact Procurement' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("localhost", "WideWorldImportersDW"),
+				    Data = Source{[Schema="analytics",Item="vw_procurement"]}[Data],
+				    SelectedColumns = Table.SelectColumns(Data, {"Purchase Key", "Date Key", "Supplier Key", "Stock Item Key", "WWI Purchase Order ID", "Ordered Outers", "Ordered Quantity", "Received Outers", "Received Quantity", "Outstanding Quantity", "Receipt Fulfillment Percent", "Is Order Finalized", "Receipt Status"})
+				in
+				    SelectedColumns
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

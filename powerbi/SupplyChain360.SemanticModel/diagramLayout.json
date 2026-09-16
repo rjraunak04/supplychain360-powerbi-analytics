@@ -1,0 +1,191 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 50,
+            "y": 30
+          },
+          "nodeIndex": "Dim City",
+          "nodeLineageTag": "1a496585-f9e0-461b-aea7-84569969c15d",
+          "size": {
+            "height": 300,
+            "width": 250
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 330,
+            "y": 30
+          },
+          "nodeIndex": "Dim Customer",
+          "nodeLineageTag": "eef150b0-1a94-493d-8ae9-f839eef2d958",
+          "size": {
+            "height": 300,
+            "width": 250
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 610,
+            "y": 30
+          },
+          "nodeIndex": "Dim Date",
+          "nodeLineageTag": "b1f14515-bdd5-43e2-b124-e1913fd8b006",
+          "size": {
+            "height": 300,
+            "width": 250
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 890,
+            "y": 30
+          },
+          "nodeIndex": "Dim Stock Item",
+          "nodeLineageTag": "cba0668d-d70f-43ec-ae4b-b4bf3bf98dfd",
+          "size": {
+            "height": 300,
+            "width": 250
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1170,
+            "y": 30
+          },
+          "nodeIndex": "Dim Supplier",
+          "nodeLineageTag": "ef37d95d-f88b-4827-bb1e-e67506021ba2",
+          "size": {
+            "height": 300,
+            "width": 250
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1450,
+            "y": 30
+          },
+          "nodeIndex": "Dim Employee",
+          "nodeLineageTag": "87730aaa-6c39-4ef6-8589-e61346730228",
+          "size": {
+            "height": 300,
+            "width": 250
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1730,
+            "y": 30
+          },
+          "nodeIndex": "Dim Transaction Type",
+          "nodeLineageTag": "51e11051-655b-4815-9662-a9535335f72f",
+          "size": {
+            "height": 300,
+            "width": 250
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 330,
+            "y": 430
+          },
+          "nodeIndex": "Fact Order Fulfillment",
+          "nodeLineageTag": "38d7a03a-eb6e-4110-9614-f9d77cacc0da",
+          "size": {
+            "height": 300,
+            "width": 250
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 610,
+            "y": 430
+          },
+          "nodeIndex": "Fact Sales Demand",
+          "nodeLineageTag": "9b3133cf-027d-4743-9768-c3f687963eca",
+          "size": {
+            "height": 300,
+            "width": 250
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 890,
+            "y": 430
+          },
+          "nodeIndex": "Fact Inventory",
+          "nodeLineageTag": "f827eac3-caec-4b2c-b1f2-a0a989e7601c",
+          "size": {
+            "height": 300,
+            "width": 250
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1170,
+            "y": 430
+          },
+          "nodeIndex": "Fact Procurement",
+          "nodeLineageTag": "d8150eeb-dc25-4979-93e8-44e2f2c21ded",
+          "size": {
+            "height": 300,
+            "width": 250
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1450,
+            "y": 430
+          },
+          "nodeIndex": "Fact Stock Movement",
+          "nodeLineageTag": "697a8d23-f94c-411b-8408-47d7a0c37361",
+          "size": {
+            "height": 300,
+            "width": 250
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1730,
+            "y": 430
+          },
+          "nodeIndex": "_Measures",
+          "nodeLineageTag": "8bf1ec54-ed41-4a33-aa92-45a4debe12d3",
+          "size": {
+            "height": 300,
+            "width": 250
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 38,
+      "pinKeyFieldsToTop": true,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

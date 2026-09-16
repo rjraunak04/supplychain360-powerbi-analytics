@@ -1,0 +1,101 @@
+relationship 3db2de93-c0cf-518c-9117-7883d614b062
+	fromColumn: 'Fact Inventory'.'Stock Item Key'
+	toColumn: 'Dim Stock Item'.'Stock Item Key'
+
+relationship b997d39d-8e61-5ff7-8213-fdcd9ea883ad
+	fromColumn: 'Fact Order Fulfillment'.'Stock Item Key'
+	toColumn: 'Dim Stock Item'.'Stock Item Key'
+
+relationship c244ca7b-eb3b-5518-8206-be9f40a2ced1
+	fromColumn: 'Fact Procurement'.'Stock Item Key'
+	toColumn: 'Dim Stock Item'.'Stock Item Key'
+
+relationship 1ed0eaad-b0f4-5111-9b8d-83322b30925b
+	fromColumn: 'Fact Sales Demand'.'Stock Item Key'
+	toColumn: 'Dim Stock Item'.'Stock Item Key'
+
+relationship cc997880-e34c-5568-a9fd-3f73a03f9fe9
+	fromColumn: 'Fact Stock Movement'.'Stock Item Key'
+	toColumn: 'Dim Stock Item'.'Stock Item Key'
+
+relationship 9a8ccea4-7dec-5878-9844-44e9c2e9c13b
+	fromColumn: 'Fact Order Fulfillment'.'Customer Key'
+	toColumn: 'Dim Customer'.'Customer Key'
+
+relationship 8704c9d9-8d87-5339-a3a8-0eabed77b785
+	fromColumn: 'Fact Sales Demand'.'Customer Key'
+	toColumn: 'Dim Customer'.'Customer Key'
+
+relationship 7007e89e-3486-5cb3-845b-aa7945f01fed
+	fromColumn: 'Fact Stock Movement'.'Customer Key'
+	toColumn: 'Dim Customer'.'Customer Key'
+
+relationship 43866b6e-1fd5-533e-af4e-5b137a947d02
+	isActive: false
+	fromColumn: 'Fact Sales Demand'.'Bill To Customer Key'
+	toColumn: 'Dim Customer'.'Customer Key'
+
+relationship d8962b06-ff14-58ac-8ee4-57cb7add2653
+	fromColumn: 'Fact Procurement'.'Supplier Key'
+	toColumn: 'Dim Supplier'.'Supplier Key'
+
+relationship 86b8e115-4c52-5e60-b061-9021bb393f4f
+	fromColumn: 'Fact Stock Movement'.'Supplier Key'
+	toColumn: 'Dim Supplier'.'Supplier Key'
+
+relationship 4707917a-e3e7-5b77-ae6d-e1d5363e6932
+	fromColumn: 'Fact Sales Demand'.'City Key'
+	toColumn: 'Dim City'.'City Key'
+
+relationship 41dd5fcb-8095-5abf-a0ba-29ad08555db9
+	fromColumn: 'Fact Sales Demand'.'Salesperson Key'
+	toColumn: 'Dim Employee'.'Employee Key'
+
+relationship 73e2b7d3-f6f5-584d-8f4d-9ff21ceaf5b9
+	fromColumn: 'Fact Stock Movement'.'Transaction Type Key'
+	toColumn: 'Dim Transaction Type'.'Transaction Type Key'
+
+relationship 7db1980d-5952-5da6-a8ab-6a5ad025c8ca
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Fact Procurement'.'Date Key'
+	toColumn: 'Dim Date'.'Date'
+
+relationship a974ed35-36a8-50d9-ae59-493c92e6210f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Fact Stock Movement'.'Date Key'
+	toColumn: 'Dim Date'.'Date'
+
+relationship 73333b08-f680-5d6d-b743-f490c7f8ba1f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Fact Order Fulfillment'.'Order Date Key'
+	toColumn: 'Dim Date'.'Date'
+
+relationship 7eeacbeb-031b-5db0-9c12-fcae612a5bbb
+	isActive: false
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Fact Order Fulfillment'.'Picked Date Key'
+	toColumn: 'Dim Date'.'Date'
+
+relationship 480195dc-52c3-5e7b-ba34-7daa25e0db19
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Fact Sales Demand'.'Invoice Date Key'
+	toColumn: 'Dim Date'.'Date'
+
+relationship 3cef7451-c59b-5239-91be-1bb487fceca5
+	isActive: false
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Fact Sales Demand'.'Delivery Date Key'
+	toColumn: 'Dim Date'.'Date'
+
+relationship b9c1b3fc4dcbd0a2a8af
+	fromColumn: 'Fact Order Fulfillment'.'City Key'
+	toColumn: 'Dim City'.'City Key'
+
+relationship 0710b9a71cfd72084788
+	fromColumn: 'Fact Order Fulfillment'.'Salesperson Key'
+	toColumn: 'Dim Employee'.'Employee Key'
+
+relationship 6c41964b6e479dc7f438
+	isActive: false
+	fromColumn: 'Fact Order Fulfillment'.'Picker Key'
+	toColumn: 'Dim Employee'.'Employee Key'

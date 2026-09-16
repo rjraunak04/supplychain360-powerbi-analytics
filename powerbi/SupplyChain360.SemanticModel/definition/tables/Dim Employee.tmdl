@@ -1,0 +1,93 @@
+table 'Dim Employee'
+	lineageTag: 87730aaa-6c39-4ef6-8589-e61346730228
+
+	column 'Employee Key'
+		dataType: int64
+		isKey
+		isHidden
+		formatString: 0
+		lineageTag: 2569894f-95db-4afd-8320-ff53262e2bb9
+		summarizeBy: none
+		sourceColumn: Employee Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'WWI Employee ID'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 6c83c98a-f9cd-49de-9030-3b3402a9e94a
+		summarizeBy: count
+		sourceColumn: WWI Employee ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Employee
+		dataType: string
+		isDefaultLabel
+		lineageTag: 74ceff24-f340-4f81-9a79-196dd7b9d214
+		summarizeBy: none
+		sourceColumn: Employee
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Preferred Name'
+		dataType: string
+		lineageTag: c9f723df-9370-48e5-b295-c74f80eb4842
+		summarizeBy: none
+		sourceColumn: Preferred Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Is Salesperson'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 08b0a690-debe-458d-89f9-027711e17b69
+		summarizeBy: none
+		sourceColumn: Is Salesperson
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Valid From'
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: f81c649b-8e1f-41d1-b79f-d8ea14ef343c
+		summarizeBy: none
+		sourceColumn: Valid From
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Valid To'
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: 50dc34ba-71f5-4073-82ae-8c5583b5b90e
+		summarizeBy: none
+		sourceColumn: Valid To
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Lineage Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: db2ac886-a5e7-45bf-a9a5-b76c2f6f50fe
+		summarizeBy: count
+		sourceColumn: Lineage Key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Employee' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("localhost", "WideWorldImportersDW"),
+				    Dimension_Employee = Source{[Schema="Dimension",Item="Employee"]}[Data]
+				in
+				    Dimension_Employee
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -12,10 +12,10 @@ SQL Server / WideWorldImportersDW → Power Query → Star Schema → DAX → PB
 
 ## Refresh hardening
 
-Fact Order Fulfillment sources Fact.Order directly and derives Days To Pick, Is Backordered, Backordered Quantity, Is Picked, Fulfillment Status and Picking Speed Category in Power Query. This removes the local refresh failure caused by a stale analytics.vw_order_fulfillment schema missing Days To Pick.
+Fact Order Fulfillment now sources `Fact.Order` directly and derives `Days To Pick`, `Is Backordered`, `Backordered Quantity`, `Is Picked`, `Fulfillment Status` and `Picking Speed Category` in Power Query. This removes the local refresh failure caused by a stale `analytics.vw_order_fulfillment` schema missing `Days To Pick`.
 
 ## Quality gates
 
 Static QA passed with 14 registered report pages, zero JSON parse errors, zero broken visual field/measure references, zero broken relationship references and zero broken direct DAX table/column references.
 
-Runtime validation still requires a successful local refresh against localhost / WideWorldImportersDW.
+Runtime validation still requires a successful local refresh against `localhost / WideWorldImportersDW`.

@@ -1,0 +1,145 @@
+table 'Dim City'
+	lineageTag: 1a496585-f9e0-461b-aea7-84569969c15d
+
+	column 'City Key'
+		dataType: int64
+		isKey
+		isHidden
+		formatString: 0
+		lineageTag: 44c01178-c3ee-4f2f-bde5-0c850053544d
+		summarizeBy: none
+		sourceColumn: City Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'WWI City ID'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: da866b3a-4aec-415b-a0e8-4b2c6148824b
+		summarizeBy: count
+		sourceColumn: WWI City ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column City
+		dataType: string
+		dataCategory: City
+		isDefaultLabel
+		lineageTag: ce11e843-2dca-41ef-ae82-e9d6e0374ece
+		summarizeBy: none
+		sourceColumn: City
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'State Province'
+		dataType: string
+		dataCategory: StateOrProvince
+		lineageTag: 15d1a65e-5a9b-4eb8-80f3-f63e7753ff2a
+		summarizeBy: none
+		sourceColumn: State Province
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		dataCategory: Country
+		lineageTag: 788fb87a-2570-4378-887f-4a8b9074010c
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column Continent
+		dataType: string
+		dataCategory: Continent
+		lineageTag: 7c437c09-ee7c-4ff6-8be7-2036c7be6baa
+		summarizeBy: none
+		sourceColumn: Continent
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sales Territory'
+		dataType: string
+		lineageTag: 9afd273f-8ff1-4882-96ff-6976bb24c1d6
+		summarizeBy: none
+		sourceColumn: Sales Territory
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: 9920b8f9-20f7-4d76-a8a2-94581c3aed60
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column Subregion
+		dataType: string
+		lineageTag: 1e91e863-881f-4f67-b1e7-291ab9f7fc78
+		summarizeBy: none
+		sourceColumn: Subregion
+
+		annotation SummarizationSetBy = Automatic
+
+	column Location
+		dataType: string
+		lineageTag: c4d3de90-8759-4dae-8858-1a5ae8f806f8
+		summarizeBy: none
+		sourceColumn: Location
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Latest Recorded Population'
+		dataType: int64
+		formatString: 0
+		lineageTag: 3402b738-c2f5-45d0-889c-b0e184fa5372
+		summarizeBy: sum
+		sourceColumn: Latest Recorded Population
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Valid From'
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: 8451397d-b471-4c72-917b-675ad388bc9b
+		summarizeBy: none
+		sourceColumn: Valid From
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Valid To'
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: aa853274-5fee-494a-b484-d566bd567973
+		summarizeBy: none
+		sourceColumn: Valid To
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Lineage Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 30c2d7ef-977c-48ef-bf15-5e601c33879b
+		summarizeBy: count
+		sourceColumn: Lineage Key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim City' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("localhost", "WideWorldImportersDW"),
+				    Dimension_City = Source{[Schema="Dimension",Item="City"]}[Data]
+				in
+				    Dimension_City
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

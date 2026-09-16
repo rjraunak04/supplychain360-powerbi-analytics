@@ -1,0 +1,56 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "a84be3b7c3be54d9c5e6",
+  "position": {
+    "x": 30,
+    "y": 465,
+    "z": 1000,
+    "height": 300,
+    "width": 900,
+    "tabOrder": 3008
+  },
+  "visual": {
+    "visualType": "donutChart",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact Inventory"
+                    }
+                  },
+                  "Property": "Inventory Status"
+                }
+              },
+              "queryRef": "Fact Inventory.Inventory Status",
+              "nativeQueryRef": "Inventory Status"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Inventory SKUs"
+                }
+              },
+              "queryRef": "_Measures.Inventory SKUs",
+              "nativeQueryRef": "Inventory SKUs"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

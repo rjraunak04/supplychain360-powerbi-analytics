@@ -1,0 +1,165 @@
+table 'Dim Date'
+	dataCategory: Time
+	lineageTag: b1f14515-bdd5-43e2-b124-e1913fd8b006
+
+	column Date
+		dataType: dateTime
+		isKey
+		formatString: Long Date
+		lineageTag: c3167e4b-89cb-489d-b534-0263d1469a76
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Day Number'
+		dataType: int64
+		formatString: 0
+		lineageTag: df82200d-1756-4ef7-b74f-e2b622a08fb9
+		summarizeBy: none
+		sourceColumn: Day Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column Day
+		dataType: string
+		lineageTag: 3d57e908-5fc2-4314-b11b-9c8e76b146a6
+		summarizeBy: none
+		sourceColumn: Day
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: string
+		lineageTag: b3251877-0873-4576-ae10-3598590e1c79
+		summarizeBy: none
+		sourceColumn: Month
+		sortByColumn: 'Calendar Month Number'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Short Month'
+		dataType: string
+		lineageTag: a411d0d8-081a-4dcc-8bae-c358fd164f0e
+		summarizeBy: none
+		sourceColumn: Short Month
+		sortByColumn: 'Calendar Month Number'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Calendar Month Number'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d60cc369-fc1e-4416-bd14-28702dbeeeb6
+		summarizeBy: sum
+		sourceColumn: Calendar Month Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Calendar Month Label'
+		dataType: string
+		lineageTag: 1a7711d6-9d37-4a34-b96f-756fbcde6835
+		summarizeBy: none
+		sourceColumn: Calendar Month Label
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Calendar Year'
+		dataType: int64
+		formatString: 0
+		lineageTag: 4cf71feb-38ff-484d-9b37-975b969f8c26
+		summarizeBy: none
+		sourceColumn: Calendar Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Calendar Year Label'
+		dataType: string
+		lineageTag: fb75d8b1-9eb0-40dc-b0ea-585b24c3ae6a
+		summarizeBy: none
+		sourceColumn: Calendar Year Label
+
+		annotation SummarizationSetBy = Automatic
+
+
+	column 'Year Month'
+		dataType: string
+		lineageTag: 8c0ae30d-087b-4856-8f97-88f704608d66
+		summarizeBy: none
+		sourceColumn: Year Month
+		sortByColumn: 'Year Month Sort'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year Month Sort'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c9efa689-67ea-4ed6-be84-80e69604bafb
+		summarizeBy: none
+		sourceColumn: Year Month Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fiscal Month Number'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: e0857e2a-7b9e-4115-a77b-54ace2b92678
+		summarizeBy: sum
+		sourceColumn: Fiscal Month Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fiscal Month Label'
+		dataType: string
+		lineageTag: 991525a3-1370-4f6c-af5a-ff432ef99d6b
+		summarizeBy: none
+		sourceColumn: Fiscal Month Label
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fiscal Year'
+		dataType: int64
+		formatString: 0
+		lineageTag: a7e61907-c2a4-4ef7-9a71-fed46371ca63
+		summarizeBy: none
+		sourceColumn: Fiscal Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fiscal Year Label'
+		dataType: string
+		lineageTag: e58287a4-f02e-479a-8f21-2edf3bd6678c
+		summarizeBy: none
+		sourceColumn: Fiscal Year Label
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ISO Week Number'
+		dataType: int64
+		formatString: 0
+		lineageTag: 800697fb-cfc4-4979-ba5c-ffa5565b8c3d
+		summarizeBy: none
+		sourceColumn: ISO Week Number
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Date' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("localhost", "WideWorldImportersDW"),
+				    Dimension_Date = Source{[Schema="Dimension",Item="Date"]}[Data],
+				    #"Added Year Month" = Table.AddColumn(Dimension_Date, "Year Month", each Date.ToText(Date.From([Date]), "MMM yyyy", "en-US"), type text),
+				    #"Added Year Month Sort" = Table.AddColumn(#"Added Year Month", "Year Month Sort", each Date.Year(Date.From([Date])) * 100 + Date.Month(Date.From([Date])), Int64.Type)
+				in
+				    #"Added Year Month Sort"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

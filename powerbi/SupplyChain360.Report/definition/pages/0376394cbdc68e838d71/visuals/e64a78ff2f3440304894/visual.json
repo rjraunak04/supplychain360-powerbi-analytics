@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "e64a78ff2f3440304894",
+  "position": {
+    "x": 630,
+    "y": 110,
+    "z": 1500,
+    "height": 62,
+    "width": 430,
+    "tabOrder": 3001
+  },
+  "visual": {
+    "visualType": "slicer",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim Transaction Type"
+                    }
+                  },
+                  "Property": "Transaction Type"
+                }
+              },
+              "queryRef": "Dim Transaction Type.Transaction Type",
+              "nativeQueryRef": "Transaction Type"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "202c9f3025b3df8ce3b8",
+  "position": {
+    "x": 30,
+    "y": 775,
+    "z": 1000,
+    "height": 270,
+    "width": 600,
+    "tabOrder": 3015
+  },
+  "visual": {
+    "visualType": "donutChart",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact Stock Movement"
+                    }
+                  },
+                  "Property": "Movement Source"
+                }
+              },
+              "queryRef": "Fact Stock Movement.Movement Source",
+              "nativeQueryRef": "Movement Source"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Stock Movement Volume"
+                }
+              },
+              "queryRef": "_Measures.Stock Movement Volume",
+              "nativeQueryRef": "Stock Movement Volume"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

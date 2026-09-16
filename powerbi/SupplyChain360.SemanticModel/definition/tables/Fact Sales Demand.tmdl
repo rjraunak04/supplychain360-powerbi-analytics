@@ -1,0 +1,242 @@
+table 'Fact Sales Demand'
+	lineageTag: 9b3133cf-027d-4743-9768-c3f687963eca
+
+	column 'Sale Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 47098d10-af7f-4790-95b3-12367bd90e40
+		summarizeBy: none
+		sourceColumn: Sale Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'City Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 359929ca-a03e-44e7-9e77-c2b55c189209
+		summarizeBy: none
+		sourceColumn: City Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 30c803e5-1434-4221-9fe3-f72d32df314b
+		summarizeBy: none
+		sourceColumn: Customer Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Bill To Customer Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c78dfdfd-f62d-4c59-9bf3-f022f0f57afe
+		summarizeBy: none
+		sourceColumn: Bill To Customer Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Stock Item Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: be6d7c52-6167-4104-a7f3-cb9d51593a16
+		summarizeBy: none
+		sourceColumn: Stock Item Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Salesperson Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: e0554e02-5572-4169-bbff-d1ad0c22d212
+		summarizeBy: none
+		sourceColumn: Salesperson Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Invoice Date Key'
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: a15d9f85-fa6e-417a-8bf8-89d060533f86
+		summarizeBy: none
+		sourceColumn: Invoice Date Key
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Delivery Date Key'
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 57fcb017-694d-4af5-b237-0eaae93436e7
+		summarizeBy: none
+		sourceColumn: Delivery Date Key
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'WWI Invoice ID'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: e8090a77-6cd8-4820-9fe8-a0c3743901bb
+		summarizeBy: none
+		sourceColumn: WWI Invoice ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 0ae56185-e24f-455a-8877-a5520c7f5f03
+		summarizeBy: sum
+		sourceColumn: Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Price'
+		dataType: double
+		lineageTag: f26ca1f1-96ba-4265-94de-7b627dde1465
+		summarizeBy: sum
+		sourceColumn: Unit Price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Tax Rate'
+		dataType: double
+		lineageTag: 4484a643-7f73-47b7-aa82-0db5a035cefd
+		summarizeBy: sum
+		sourceColumn: Tax Rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total Excluding Tax'
+		dataType: double
+		lineageTag: dddca4fa-4b09-47ab-9be1-be06e9473502
+		summarizeBy: sum
+		sourceColumn: Total Excluding Tax
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Tax Amount'
+		dataType: double
+		lineageTag: 9789d387-fa06-4d59-9b28-c0bcf33de0d9
+		summarizeBy: sum
+		sourceColumn: Tax Amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Profit
+		dataType: double
+		lineageTag: 58e243e2-7560-455f-941f-50e64bc55ad0
+		summarizeBy: sum
+		sourceColumn: Profit
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total Including Tax'
+		dataType: double
+		lineageTag: 5453f26b-1603-4c52-abf3-06ccdb26cf9f
+		summarizeBy: sum
+		sourceColumn: Total Including Tax
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total Dry Items'
+		dataType: int64
+		formatString: 0
+		lineageTag: 6d5930c3-4311-4946-8cd9-3077f440b8b8
+		summarizeBy: sum
+		sourceColumn: Total Dry Items
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total Chiller Items'
+		dataType: int64
+		formatString: 0
+		lineageTag: 7a9845b4-d0eb-4cdf-b39c-1e5d35d76607
+		summarizeBy: sum
+		sourceColumn: Total Chiller Items
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Profit Margin Percent'
+		dataType: double
+		lineageTag: 1ed6c851-cf8c-4489-b4b0-615b4dc7f15a
+		summarizeBy: sum
+		sourceColumn: Profit Margin Percent
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Delivery Days'
+		dataType: int64
+		formatString: 0
+		lineageTag: 7127e6c1-689f-41b9-bcda-c57b81625114
+		summarizeBy: sum
+		sourceColumn: Delivery Days
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Delivery Speed Category'
+		dataType: string
+		lineageTag: 344ec9b9-4a11-4d99-83f3-c7e416b58d61
+		summarizeBy: none
+		sourceColumn: Delivery Speed Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Is Loss Making'
+		dataType: int64
+		formatString: 0
+		lineageTag: 3075f422-38d2-4386-94c0-beb6311cedb5
+		summarizeBy: sum
+		sourceColumn: Is Loss Making
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Profitability Status'
+		dataType: string
+		lineageTag: e8d40fd7-a58d-4477-bcbc-32f3eb5f7b90
+		summarizeBy: none
+		sourceColumn: Profitability Status
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Fact Sales Demand' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("localhost", "WideWorldImportersDW"),
+				    Data = Source{[Schema="analytics",Item="vw_sales_demand"]}[Data],
+				    SelectedColumns = Table.SelectColumns(Data, {"Sale Key", "City Key", "Customer Key", "Bill To Customer Key", "Stock Item Key", "Salesperson Key", "Invoice Date Key", "Delivery Date Key", "WWI Invoice ID", "Quantity", "Unit Price", "Tax Rate", "Total Excluding Tax", "Tax Amount", "Profit", "Total Including Tax", "Total Dry Items", "Total Chiller Items", "Profit Margin Percent", "Delivery Days", "Delivery Speed Category", "Is Loss Making", "Profitability Status"})
+				in
+				    SelectedColumns
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

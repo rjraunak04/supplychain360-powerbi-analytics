@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "50d016caec6ee732d74d",
+  "position": {
+    "x": 1100,
+    "y": 110,
+    "z": 1500,
+    "height": 62,
+    "width": 360,
+    "tabOrder": 2002
+  },
+  "visual": {
+    "visualType": "slicer",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim Stock Item"
+                    }
+                  },
+                  "Property": "Is Chiller Stock"
+                }
+              },
+              "queryRef": "Dim Stock Item.Is Chiller Stock",
+              "nativeQueryRef": "Chiller Stock"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,161 @@
+table 'Fact Stock Movement'
+	lineageTag: 697a8d23-f94c-411b-8408-47d7a0c37361
+
+	column 'Movement Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: a5fd429d-c77b-4dde-b4e1-66c69466f59a
+		summarizeBy: none
+		sourceColumn: Movement Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Date Key'
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 197d8e0b-4bda-49ff-9311-8b8468ba6646
+		summarizeBy: none
+		sourceColumn: Date Key
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Stock Item Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: dda8ca30-63a8-4095-bd29-78106d1e426e
+		summarizeBy: none
+		sourceColumn: Stock Item Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: cd416169-6f89-45a8-8d62-e1236f1131ee
+		summarizeBy: none
+		sourceColumn: Customer Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Supplier Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: a7396b07-874b-4563-b665-5216762ac060
+		summarizeBy: none
+		sourceColumn: Supplier Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Transaction Type Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: fb2b0b08-6b45-4406-91cf-e69df2f19cec
+		summarizeBy: none
+		sourceColumn: Transaction Type Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'WWI Stock Item Transaction ID'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b7d1d4d3-6333-4bdb-85f5-239b7cb15514
+		summarizeBy: none
+		sourceColumn: WWI Stock Item Transaction ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'WWI Invoice ID'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 68e86393-06ed-4768-a475-c6ba60d23535
+		summarizeBy: none
+		sourceColumn: WWI Invoice ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'WWI Purchase Order ID'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f213824d-3eb2-4138-9e5a-1be4f70810cd
+		summarizeBy: none
+		sourceColumn: WWI Purchase Order ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: f3743329-055a-40ba-b6e3-1aaa49e64e75
+		summarizeBy: sum
+		sourceColumn: Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Absolute Movement Quantity'
+		dataType: int64
+		formatString: 0
+		lineageTag: 672a92aa-a6f2-4184-8c0b-d62e94b7d300
+		summarizeBy: sum
+		sourceColumn: Absolute Movement Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flow Direction'
+		dataType: string
+		lineageTag: 9bbcf226-793a-4a35-b411-ed136eb85a47
+		summarizeBy: none
+		sourceColumn: Flow Direction
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Stock In Quantity'
+		dataType: int64
+		formatString: 0
+		lineageTag: 904aad10-cc38-426b-ac80-01c0b9dfbe5e
+		summarizeBy: sum
+		sourceColumn: Stock In Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Stock Out Quantity'
+		dataType: int64
+		formatString: 0
+		lineageTag: 4701e760-ebf1-4880-a97f-685598509d5e
+		summarizeBy: sum
+		sourceColumn: Stock Out Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Movement Source'
+		dataType: string
+		lineageTag: d8820f1a-2122-42a4-b99a-b399ae990360
+		summarizeBy: none
+		sourceColumn: Movement Source
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Fact Stock Movement' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("localhost", "WideWorldImportersDW"),
+				    Data = Source{[Schema="analytics",Item="vw_stock_movement"]}[Data],
+				    SelectedColumns = Table.SelectColumns(Data, {"Movement Key", "Date Key", "Stock Item Key", "Customer Key", "Supplier Key", "Transaction Type Key", "WWI Stock Item Transaction ID", "WWI Invoice ID", "WWI Purchase Order ID", "Quantity", "Absolute Movement Quantity", "Flow Direction", "Stock In Quantity", "Stock Out Quantity", "Movement Source"})
+				in
+				    SelectedColumns
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

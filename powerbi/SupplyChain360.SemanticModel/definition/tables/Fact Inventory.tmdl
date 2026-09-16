@@ -1,0 +1,143 @@
+table 'Fact Inventory'
+	lineageTag: f827eac3-caec-4b2c-b1f2-a0a989e7601c
+
+	column 'Stock Holding Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c21f1c83-9f94-4835-8d33-010e48e54f97
+		summarizeBy: none
+		sourceColumn: Stock Holding Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Stock Item Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c491e508-47df-42a4-ac13-722d8a4b0dad
+		summarizeBy: none
+		sourceColumn: Stock Item Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Quantity On Hand'
+		dataType: int64
+		formatString: 0
+		lineageTag: b03d8608-ad8f-4eec-95ed-54e7c46b8a42
+		summarizeBy: sum
+		sourceColumn: Quantity On Hand
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Bin Location'
+		dataType: string
+		lineageTag: 7f6c88d1-d0d0-47e9-b166-9b4e910220cb
+		summarizeBy: none
+		sourceColumn: Bin Location
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Last Stocktake Quantity'
+		dataType: int64
+		formatString: 0
+		lineageTag: f857ee73-b07f-4aa3-aae3-2179ced329ab
+		summarizeBy: sum
+		sourceColumn: Last Stocktake Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Last Cost Price'
+		dataType: double
+		lineageTag: 5cbbb10a-5edb-4e3f-8d6d-b84afa48fa19
+		summarizeBy: sum
+		sourceColumn: Last Cost Price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Reorder Level'
+		dataType: int64
+		formatString: 0
+		lineageTag: d5ca3c28-6314-4842-b6c6-adf900696cae
+		summarizeBy: sum
+		sourceColumn: Reorder Level
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Target Stock Level'
+		dataType: int64
+		formatString: 0
+		lineageTag: 57fe74ec-83ca-4e01-b2cc-6969548d0511
+		summarizeBy: sum
+		sourceColumn: Target Stock Level
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Inventory Value'
+		dataType: double
+		lineageTag: 54c24a1c-18e2-41c4-91ee-ef5c1e2e6a75
+		summarizeBy: sum
+		sourceColumn: Inventory Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Stock Above Reorder'
+		dataType: int64
+		formatString: 0
+		lineageTag: 0ac1994a-4de3-4fd9-8fab-63253aaec0c2
+		summarizeBy: sum
+		sourceColumn: Stock Above Reorder
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Gap To Target'
+		dataType: int64
+		formatString: 0
+		lineageTag: 38c0bfae-21b4-4c47-9974-cf4ab03b878b
+		summarizeBy: sum
+		sourceColumn: Gap To Target
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Inventory Status'
+		dataType: string
+		lineageTag: 34bc837c-699b-4568-99c3-c04dd1f2ea16
+		summarizeBy: none
+		sourceColumn: Inventory Status
+		sortByColumn: 'Inventory Status Sort'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Inventory Status Sort'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Inventory Status Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Fact Inventory' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("localhost", "WideWorldImportersDW"),
+				    Data = Source{[Schema="analytics",Item="vw_inventory"]}[Data],
+				    StockItems = Source{[Schema="Dimension",Item="Stock Item"]}[Data],
+				    CurrentStockItems = Table.SelectRows(StockItems, each Date.From([Valid To]) = #date(9999, 12, 31)),
+				    CurrentKeys = Table.Distinct(Table.SelectColumns(CurrentStockItems, {"Stock Item Key"})),
+				    CurrentInventory = Table.NestedJoin(Data, {"Stock Item Key"}, CurrentKeys, {"Stock Item Key"}, "_CurrentSKU", JoinKind.Inner),
+				    FilteredInventory = Table.RemoveColumns(CurrentInventory, {"_CurrentSKU"}),
+				    SelectedColumns = Table.SelectColumns(FilteredInventory, {"Stock Holding Key", "Stock Item Key", "Quantity On Hand", "Bin Location", "Last Stocktake Quantity", "Last Cost Price", "Reorder Level", "Target Stock Level", "Inventory Value", "Stock Above Reorder", "Gap To Target", "Inventory Status"}),
+				    AddedStatusSort = Table.AddColumn(SelectedColumns, "Inventory Status Sort", each if [Inventory Status] = "Stockout" then 1 else if [Inventory Status] = "Reorder Required" then 2 else if [Inventory Status] = "Overstock" then 3 else if [Inventory Status] = "Healthy" then 4 else 9, Int64.Type)
+				in
+				    AddedStatusSort
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,31 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["Fact Inventory","Fact Order Fulfillment","Fact Procurement","Fact Sales Demand","Fact Stock Movement","Dim City","Dim Customer","Dim Date","Dim Employee","Dim Stock Item","Dim Supplier","Dim Transaction Type"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table 'Fact Inventory'
+ref table 'Fact Order Fulfillment'
+ref table 'Fact Procurement'
+ref table 'Fact Sales Demand'
+ref table 'Fact Stock Movement'
+ref table 'Dim City'
+ref table 'Dim Customer'
+ref table 'Dim Date'
+ref table 'Dim Employee'
+ref table 'Dim Stock Item'
+ref table 'Dim Supplier'
+ref table 'Dim Transaction Type'
+ref table _Measures
+
+ref cultureInfo en-US
+

@@ -1,0 +1,464 @@
+/// Centralized business measures for SupplyChain360.
+table _Measures
+	lineageTag: 8bf1ec54-ed41-4a33-aa92-45a4debe12d3
+
+	measure 'Total Inventory Value' = SUM('Fact Inventory'[Inventory Value])
+		formatString: $#,##0.00
+		displayFolder: 01 Inventory
+
+	measure 'Quantity On Hand' = SUM('Fact Inventory'[Quantity On Hand])
+		formatString: #,##0
+		displayFolder: 01 Inventory
+
+	measure 'Stockout SKUs' = COALESCE(CALCULATE(DISTINCTCOUNT('Fact Inventory'[Stock Item Key]), 'Fact Inventory'[Inventory Status] = "Stockout"), 0)
+		formatString: #,##0
+		displayFolder: 01 Inventory
+
+	measure 'Reorder Required SKUs' = CALCULATE(DISTINCTCOUNT('Fact Inventory'[Stock Item Key]), 'Fact Inventory'[Inventory Status] = "Reorder Required")
+		formatString: #,##0
+		displayFolder: 01 Inventory
+
+	measure 'Overstock SKUs' = CALCULATE(DISTINCTCOUNT('Fact Inventory'[Stock Item Key]), 'Fact Inventory'[Inventory Status] = "Overstock")
+		formatString: #,##0
+		displayFolder: 01 Inventory
+
+	measure 'Healthy SKUs' = CALCULATE(DISTINCTCOUNT('Fact Inventory'[Stock Item Key]), 'Fact Inventory'[Inventory Status] = "Healthy")
+		formatString: #,##0
+		displayFolder: 01 Inventory
+
+	measure 'Inventory Health %' = DIVIDE([Healthy SKUs], DISTINCTCOUNT('Fact Inventory'[Stock Item Key]))
+		formatString: 0.0%
+		displayFolder: 01 Inventory
+
+	measure 'Purchase Orders' = DISTINCTCOUNT('Fact Procurement'[WWI Purchase Order ID])
+		formatString: #,##0
+		displayFolder: 02 Procurement
+
+	measure 'Ordered Quantity' = SUM('Fact Procurement'[Ordered Quantity])
+		formatString: #,##0
+		displayFolder: 02 Procurement
+
+	measure 'Received Quantity' = SUM('Fact Procurement'[Received Quantity])
+		formatString: #,##0
+		displayFolder: 02 Procurement
+
+	measure 'Outstanding Quantity' = SUM('Fact Procurement'[Outstanding Quantity])
+		formatString: #,##0
+		displayFolder: 02 Procurement
+
+	measure 'Procurement Fulfillment %' = DIVIDE([Received Quantity], [Ordered Quantity])
+		formatString: 0.0%
+		displayFolder: 02 Procurement
+
+	measure 'Total Orders' = DISTINCTCOUNT('Fact Order Fulfillment'[WWI Order ID])
+		formatString: #,##0
+		displayFolder: 03 Fulfillment
+
+	measure 'Order Lines' = COUNTROWS('Fact Order Fulfillment')
+		formatString: #,##0
+		displayFolder: 03 Fulfillment
+
+	measure 'Ordered Units' = SUM('Fact Order Fulfillment'[Quantity])
+		formatString: #,##0
+		displayFolder: 03 Fulfillment
+
+	measure 'Backordered Lines' = SUM('Fact Order Fulfillment'[Is Backordered])
+		formatString: #,##0
+		displayFolder: 03 Fulfillment
+
+	measure 'Backorder Rate %' = DIVIDE([Backordered Lines], [Order Lines])
+		formatString: 0.0%
+		displayFolder: 03 Fulfillment
+
+	measure 'Order Value' = SUM('Fact Order Fulfillment'[Total Including Tax])
+		formatString: $#,##0.00
+		displayFolder: 03 Fulfillment
+
+	measure 'Total Revenue' = SUM('Fact Sales Demand'[Total Excluding Tax])
+		formatString: $#,##0.00
+		displayFolder: 04 Sales
+
+	measure 'Total Profit' = SUM('Fact Sales Demand'[Profit])
+		formatString: $#,##0.00
+		displayFolder: 04 Sales
+
+	measure 'Profit Margin %' = DIVIDE([Total Profit], [Total Revenue])
+		formatString: 0.0%
+		displayFolder: 04 Sales
+
+	measure 'Units Sold' = SUM('Fact Sales Demand'[Quantity])
+		formatString: #,##0
+		displayFolder: 04 Sales
+
+	measure 'Total Invoices' = DISTINCTCOUNT('Fact Sales Demand'[WWI Invoice ID])
+		formatString: #,##0
+		displayFolder: 04 Sales
+
+	measure 'Average Delivery Days' = AVERAGE('Fact Sales Demand'[Delivery Days])
+		formatString: 0.0
+		displayFolder: 04 Sales
+
+	measure 'Revenue YTD' = TOTALYTD([Total Revenue], 'Dim Date'[Date])
+		formatString: $#,##0.00
+		displayFolder: 05 Time Intelligence
+
+	measure 'Revenue LY' = CALCULATE([Total Revenue], SAMEPERIODLASTYEAR('Dim Date'[Date]))
+		formatString: $#,##0.00
+		displayFolder: 05 Time Intelligence
+
+	measure 'Revenue YoY %' = DIVIDE([Total Revenue] - [Revenue LY], [Revenue LY])
+		formatString: 0.0%
+		displayFolder: 05 Time Intelligence
+
+	measure 'Profit YTD' = TOTALYTD([Total Profit], 'Dim Date'[Date])
+		formatString: $#,##0.00
+		displayFolder: 05 Time Intelligence
+
+	measure 'Revenue by Delivery Date' = CALCULATE([Total Revenue], USERELATIONSHIP('Dim Date'[Date], 'Fact Sales Demand'[Delivery Date Key]))
+		formatString: $#,##0.00
+		displayFolder: 05 Time Intelligence
+
+	measure 'Revenue by Bill-To Customer' = CALCULATE([Total Revenue], USERELATIONSHIP('Dim Customer'[Customer Key], 'Fact Sales Demand'[Bill To Customer Key]))
+		formatString: $#,##0.00
+		displayFolder: 05 Time Intelligence
+
+	measure 'Stock In Quantity' = SUM('Fact Stock Movement'[Stock In Quantity])
+		formatString: #,##0
+		displayFolder: 06 Stock Movement
+
+	measure 'Stock Out Quantity' = SUM('Fact Stock Movement'[Stock Out Quantity])
+		formatString: #,##0
+		displayFolder: 06 Stock Movement
+
+	measure 'Net Stock Movement' = SUM('Fact Stock Movement'[Quantity])
+		formatString: #,##0
+		displayFolder: 06 Stock Movement
+
+	measure 'Movement Events' = COUNTROWS('Fact Stock Movement')
+		formatString: #,##0
+		displayFolder: 06 Stock Movement
+
+	measure 'Inventory SKUs' = DISTINCTCOUNT('Fact Inventory'[Stock Item Key])
+		formatString: #,##0
+		displayFolder: 01 Inventory
+
+	measure 'Pending Pick Lines' = CALCULATE(COUNTROWS('Fact Order Fulfillment'), 'Fact Order Fulfillment'[Fulfillment Status] = "Pending Pick")
+		formatString: #,##0
+		displayFolder: 03 Fulfillment
+
+	measure 'Average Days to Pick' = AVERAGE('Fact Order Fulfillment'[Days To Pick])
+		formatString: 0.0
+		displayFolder: 03 Fulfillment
+
+	measure 'Orders by Picked Date' = CALCULATE([Total Orders], USERELATIONSHIP('Dim Date'[Date], 'Fact Order Fulfillment'[Picked Date Key]))
+		formatString: #,##0
+		displayFolder: 05 Time Intelligence
+
+
+	measure 'Top 10 Product Units Sold' = VAR ProductRank = RANKX(ALLSELECTED('Dim Stock Item'[Stock Item]), [Units Sold], , DESC, DENSE) RETURN IF(ProductRank <= 10, [Units Sold])
+		formatString: #,##0
+		displayFolder: 07 Executive Dashboard
+
+	measure 'Top 10 State Revenue' = VAR StateRank = RANKX(ALLSELECTED('Dim City'[State Province]), [Total Revenue], , DESC, DENSE) RETURN IF(StateRank <= 10, [Total Revenue])
+		formatString: $#,##0.00
+		displayFolder: 07 Executive Dashboard
+
+
+	measure 'Reorder Gap Units' = SUMX(FILTER('Fact Inventory', 'Fact Inventory'[Quantity On Hand] <= 'Fact Inventory'[Reorder Level]), MAX('Fact Inventory'[Gap To Target], 0))
+		formatString: #,##0
+		displayFolder: 08 Inventory Intelligence
+
+	measure 'Reorder Gap Value' = SUMX(FILTER('Fact Inventory', 'Fact Inventory'[Quantity On Hand] <= 'Fact Inventory'[Reorder Level]), MAX('Fact Inventory'[Gap To Target], 0) * 'Fact Inventory'[Last Cost Price])
+		formatString: $#,##0.00
+		displayFolder: 08 Inventory Intelligence
+
+	measure 'Excess Inventory Units' = SUMX(FILTER('Fact Inventory', 'Fact Inventory'[Quantity On Hand] > 'Fact Inventory'[Target Stock Level]), 'Fact Inventory'[Quantity On Hand] - 'Fact Inventory'[Target Stock Level])
+		formatString: #,##0
+		displayFolder: 08 Inventory Intelligence
+
+	measure 'Excess Inventory Value' = SUMX(FILTER('Fact Inventory', 'Fact Inventory'[Quantity On Hand] > 'Fact Inventory'[Target Stock Level]), ('Fact Inventory'[Quantity On Hand] - 'Fact Inventory'[Target Stock Level]) * 'Fact Inventory'[Last Cost Price])
+		formatString: $#,##0.00
+		displayFolder: 08 Inventory Intelligence
+
+	measure 'Average Inventory Value per SKU' = DIVIDE([Total Inventory Value], [Inventory SKUs])
+		formatString: $#,##0.00
+		displayFolder: 08 Inventory Intelligence
+
+	measure 'Stock Movement Volume' = [Stock In Quantity] + [Stock Out Quantity]
+		formatString: #,##0
+		displayFolder: 08 Inventory Intelligence
+
+	measure 'Top 10 Inventory Value' = VAR ProductRank = RANKX(ALLSELECTED('Dim Stock Item'[Stock Item]), [Total Inventory Value], , DESC, DENSE) RETURN IF(ProductRank <= 10, [Total Inventory Value])
+		formatString: $#,##0.00
+		displayFolder: 08 Inventory Intelligence
+
+	measure 'Top 10 Reorder Gap Units' = VAR ProductRank = RANKX(ALLSELECTED('Dim Stock Item'[Stock Item]), [Reorder Gap Units], , DESC, DENSE) RETURN IF(ProductRank <= 10 && [Reorder Gap Units] > 0, [Reorder Gap Units])
+		formatString: #,##0
+		displayFolder: 08 Inventory Intelligence
+
+	measure 'Top 10 Excess Inventory Value' = VAR ProductRank = RANKX(ALLSELECTED('Dim Stock Item'[Stock Item]), [Excess Inventory Value], , DESC, DENSE) RETURN IF(ProductRank <= 10 && [Excess Inventory Value] > 0, [Excess Inventory Value])
+		formatString: $#,##0.00
+		displayFolder: 08 Inventory Intelligence
+
+	measure 'Top 10 Movement Volume' = VAR ProductRank = RANKX(ALLSELECTED('Dim Stock Item'[Stock Item]), [Stock Movement Volume], , DESC, DENSE) RETURN IF(ProductRank <= 10, [Stock Movement Volume])
+		formatString: #,##0
+		displayFolder: 08 Inventory Intelligence
+
+
+	measure 'Inventory Rows' = COUNTROWS('Fact Inventory')
+		formatString: #,##0
+		displayFolder: 08 Inventory Intelligence\QA
+
+	measure 'Inventory Key QA' = [Inventory Rows] - [Inventory SKUs]
+		formatString: #,##0
+		displayFolder: 08 Inventory Intelligence\QA
+
+	measure 'Inventory QA Status' = IF([Inventory Key QA] = 0, "PASS", "CHECK")
+		displayFolder: 08 Inventory Intelligence\QA
+
+	measure 'Excess Inventory % of Value' = DIVIDE([Excess Inventory Value], [Total Inventory Value])
+		formatString: 0.0%
+		displayFolder: 08 Inventory Intelligence
+
+	measure 'Reorder Exposure % of Value' = DIVIDE([Reorder Gap Value], [Total Inventory Value])
+		formatString: 0.00%
+		displayFolder: 08 Inventory Intelligence
+
+	measure 'Current Reorder Level' = MAX('Fact Inventory'[Reorder Level])
+		formatString: #,##0
+		displayFolder: 08 Inventory Intelligence\SKU Detail
+
+	measure 'Current Target Stock Level' = MAX('Fact Inventory'[Target Stock Level])
+		formatString: #,##0
+		displayFolder: 08 Inventory Intelligence\SKU Detail
+
+	measure 'Current Gap To Target' = MAX('Fact Inventory'[Gap To Target])
+		formatString: #,##0
+		displayFolder: 08 Inventory Intelligence\SKU Detail
+
+
+	measure 'Supplier Count' = DISTINCTCOUNT('Fact Procurement'[Supplier Key])
+		formatString: #,##0
+		displayFolder: 09 Procurement Intelligence
+
+	measure 'Procurement Lines' = COUNTROWS('Fact Procurement')
+		formatString: #,##0
+		displayFolder: 09 Procurement Intelligence
+
+	measure 'Finalized Purchase Orders' = CALCULATE([Purchase Orders], 'Fact Procurement'[Is Order Finalized] = TRUE())
+		formatString: #,##0
+		displayFolder: 09 Procurement Intelligence
+
+	measure 'Open Purchase Orders' = CALCULATE([Purchase Orders], 'Fact Procurement'[Is Order Finalized] = FALSE())
+		formatString: #,##0
+		displayFolder: 09 Procurement Intelligence
+
+	measure 'Purchase Order Completion %' = DIVIDE([Finalized Purchase Orders], [Purchase Orders])
+		formatString: 0.0%
+		displayFolder: 09 Procurement Intelligence
+
+	measure 'Receipt Shortfall Lines' = CALCULATE(COUNTROWS('Fact Procurement'), FILTER('Fact Procurement', 'Fact Procurement'[Outstanding Quantity] > 0))
+		formatString: #,##0
+		displayFolder: 09 Procurement Intelligence
+
+	measure 'Receipt Shortfall Line %' = DIVIDE([Receipt Shortfall Lines], [Procurement Lines])
+		formatString: 0.0%
+		displayFolder: 09 Procurement Intelligence
+
+	measure 'Suppliers with Outstanding Qty' = CALCULATE(DISTINCTCOUNT('Fact Procurement'[Supplier Key]), FILTER('Fact Procurement', 'Fact Procurement'[Outstanding Quantity] > 0))
+		formatString: #,##0
+		displayFolder: 09 Procurement Intelligence
+
+	measure 'Outstanding Quantity %' = DIVIDE([Outstanding Quantity], [Ordered Quantity])
+		formatString: 0.00%
+		displayFolder: 09 Procurement Intelligence
+
+	measure 'Average Expected Lead Time Days' = DIVIDE(SUMX('Fact Procurement', 'Fact Procurement'[Ordered Quantity] * RELATED('Dim Stock Item'[Lead Time Days])), [Ordered Quantity])
+		formatString: 0.0
+		displayFolder: 09 Procurement Intelligence
+
+	measure 'Over Received Quantity' = SUMX('Fact Procurement', MAX('Fact Procurement'[Received Quantity] - 'Fact Procurement'[Ordered Quantity], 0))
+		formatString: #,##0
+		displayFolder: 09 Procurement Intelligence
+
+	measure 'Not Received Lines' = CALCULATE([Procurement Lines], 'Fact Procurement'[Receipt Status] = "Not Received")
+		formatString: #,##0
+		displayFolder: 09 Procurement Intelligence
+
+	measure 'Partially Received Lines' = CALCULATE([Procurement Lines], 'Fact Procurement'[Receipt Status] = "Partially Received")
+		formatString: #,##0
+		displayFolder: 09 Procurement Intelligence
+
+	measure 'Top 10 Supplier Ordered Quantity' = VAR SupplierRank = RANKX(ALLSELECTED('Dim Supplier'[Supplier]), [Ordered Quantity], , DESC, DENSE) RETURN IF(SupplierRank <= 10, [Ordered Quantity])
+		formatString: #,##0
+		displayFolder: 09 Procurement Intelligence
+
+	measure 'Top 10 Supplier Outstanding Quantity' = VAR SupplierRank = RANKX(ALLSELECTED('Dim Supplier'[Supplier]), [Outstanding Quantity], , DESC, DENSE) RETURN IF(SupplierRank <= 10 && [Outstanding Quantity] > 0, [Outstanding Quantity])
+		formatString: #,##0
+		displayFolder: 09 Procurement Intelligence
+
+	measure 'Top 10 Product Outstanding Quantity' = VAR ProductRank = RANKX(ALLSELECTED('Dim Stock Item'[SKU Label]), [Outstanding Quantity], , DESC, DENSE) RETURN IF(ProductRank <= 10 && [Outstanding Quantity] > 0, [Outstanding Quantity])
+		formatString: #,##0
+		displayFolder: 09 Procurement Intelligence
+
+
+	measure 'Picked Lines' = SUM('Fact Order Fulfillment'[Is Picked])
+		formatString: #,##0
+		displayFolder: 10 Fulfillment Intelligence
+
+	measure 'Pick Completion %' = DIVIDE([Picked Lines], [Order Lines])
+		formatString: 0.0%
+		displayFolder: 10 Fulfillment Intelligence
+
+	measure 'Backordered Units' = SUM('Fact Order Fulfillment'[Backordered Quantity])
+		formatString: #,##0
+		displayFolder: 10 Fulfillment Intelligence
+
+	measure 'Backordered Orders' = CALCULATE(DISTINCTCOUNT('Fact Order Fulfillment'[WWI Order ID]), 'Fact Order Fulfillment'[Is Backordered] = 1)
+		formatString: #,##0
+		displayFolder: 10 Fulfillment Intelligence
+
+	measure 'Backordered Order %' = DIVIDE([Backordered Orders], [Total Orders])
+		formatString: 0.0%
+		displayFolder: 10 Fulfillment Intelligence
+
+	measure 'Backorder Unit Rate %' = DIVIDE([Backordered Units], [Ordered Units])
+		formatString: 0.0%
+		displayFolder: 10 Fulfillment Intelligence
+
+	measure 'Same Day Pick Lines' = CALCULATE([Order Lines], 'Fact Order Fulfillment'[Picking Speed Category] = "Same Day")
+		formatString: #,##0
+		displayFolder: 10 Fulfillment Intelligence
+
+	measure 'Next Day Pick Lines' = CALCULATE([Order Lines], 'Fact Order Fulfillment'[Picking Speed Category] = "Next Day")
+		formatString: #,##0
+		displayFolder: 10 Fulfillment Intelligence
+
+	measure '2+ Day Pick Lines' = CALCULATE([Order Lines], 'Fact Order Fulfillment'[Picking Speed Category] = "2+ Days")
+		formatString: #,##0
+		displayFolder: 10 Fulfillment Intelligence
+
+	measure 'Same Day Pick %' = DIVIDE([Same Day Pick Lines], [Picked Lines])
+		formatString: 0.0%
+		displayFolder: 10 Fulfillment Intelligence
+
+	measure 'Picked Orders by Picker' = CALCULATE([Total Orders], USERELATIONSHIP('Dim Employee'[Employee Key], 'Fact Order Fulfillment'[Picker Key]))
+		formatString: #,##0
+		displayFolder: 10 Fulfillment Intelligence
+
+	measure 'Top 10 Product Backordered Units' = VAR Rnk = RANKX(ALLSELECTED('Dim Stock Item'[SKU Label]), [Backordered Units], , DESC, DENSE) RETURN IF(Rnk <= 10 && [Backordered Units] > 0, [Backordered Units])
+		formatString: #,##0
+		displayFolder: 10 Fulfillment Intelligence
+
+	measure 'Top 10 Customer Backordered Units' = VAR Rnk = RANKX(ALLSELECTED('Dim Customer'[Customer]), [Backordered Units], , DESC, DENSE) RETURN IF(Rnk <= 10 && [Backordered Units] > 0, [Backordered Units])
+		formatString: #,##0
+		displayFolder: 10 Fulfillment Intelligence
+
+	measure 'Top 10 City Backordered Units' = VAR Rnk = RANKX(ALLSELECTED('Dim City'[City]), [Backordered Units], , DESC, DENSE) RETURN IF(Rnk <= 10 && [Backordered Units] > 0, [Backordered Units])
+		formatString: #,##0
+		displayFolder: 10 Fulfillment Intelligence
+
+	measure 'Top 10 Picker Orders' = VAR Rnk = RANKX(ALLSELECTED('Dim Employee'[Employee]), [Picked Orders by Picker], , DESC, DENSE) RETURN IF(Rnk <= 10, [Picked Orders by Picker])
+		formatString: #,##0
+		displayFolder: 10 Fulfillment Intelligence
+
+	measure 'Average Revenue per Invoice' = DIVIDE([Total Revenue], [Total Invoices])
+		formatString: $#,##0.00
+		displayFolder: 11 Sales & Profitability
+
+	measure 'Revenue per Unit' = DIVIDE([Total Revenue], [Units Sold])
+		formatString: $#,##0.00
+		displayFolder: 11 Sales & Profitability
+
+	measure 'Profit per Unit' = DIVIDE([Total Profit], [Units Sold])
+		formatString: $#,##0.00
+		displayFolder: 11 Sales & Profitability
+
+	measure 'Sales Lines' = COUNTROWS('Fact Sales Demand')
+		formatString: #,##0
+		displayFolder: 11 Sales & Profitability
+
+	measure 'Loss Making Lines' = CALCULATE([Sales Lines], 'Fact Sales Demand'[Is Loss Making] = TRUE())
+		formatString: #,##0
+		displayFolder: 11 Sales & Profitability
+
+	measure 'Loss Making Line %' = DIVIDE([Loss Making Lines], [Sales Lines])
+		formatString: 0.0%
+		displayFolder: 11 Sales & Profitability
+
+	measure 'Loss Making Revenue' = CALCULATE([Total Revenue], 'Fact Sales Demand'[Is Loss Making] = TRUE())
+		formatString: $#,##0.00
+		displayFolder: 11 Sales & Profitability
+
+	measure 'Top 10 Product Revenue' = VAR Rnk = RANKX(ALLSELECTED('Dim Stock Item'[SKU Label]), [Total Revenue], , DESC, DENSE) RETURN IF(Rnk <= 10, [Total Revenue])
+		formatString: $#,##0.00
+		displayFolder: 11 Sales & Profitability
+
+	measure 'Top 10 Product Profit' = VAR Rnk = RANKX(ALLSELECTED('Dim Stock Item'[SKU Label]), [Total Profit], , DESC, DENSE) RETURN IF(Rnk <= 10, [Total Profit])
+		formatString: $#,##0.00
+		displayFolder: 11 Sales & Profitability
+
+	measure 'Top 10 Customer Revenue' = VAR Rnk = RANKX(ALLSELECTED('Dim Customer'[Customer]), [Total Revenue], , DESC, DENSE) RETURN IF(Rnk <= 10, [Total Revenue])
+		formatString: $#,##0.00
+		displayFolder: 11 Sales & Profitability
+
+	measure 'Top 10 Customer Profit' = VAR Rnk = RANKX(ALLSELECTED('Dim Customer'[Customer]), [Total Profit], , DESC, DENSE) RETURN IF(Rnk <= 10, [Total Profit])
+		formatString: $#,##0.00
+		displayFolder: 11 Sales & Profitability
+
+	measure 'Top 10 State Profit' = VAR Rnk = RANKX(ALLSELECTED('Dim City'[State Province]), [Total Profit], , DESC, DENSE) RETURN IF(Rnk <= 10, [Total Profit])
+		formatString: $#,##0.00
+		displayFolder: 11 Sales & Profitability
+
+	measure 'Top 10 Salesperson Revenue' = VAR Rnk = RANKX(ALLSELECTED('Dim Employee'[Employee]), [Total Revenue], , DESC, DENSE) RETURN IF(Rnk <= 10, [Total Revenue])
+		formatString: $#,##0.00
+		displayFolder: 11 Sales & Profitability
+
+	measure 'Stock In %' = DIVIDE([Stock In Quantity], [Stock Movement Volume])
+		formatString: 0.0%
+		displayFolder: 12 Stock Movement Intelligence
+
+	measure 'Stock Out %' = DIVIDE([Stock Out Quantity], [Stock Movement Volume])
+		formatString: 0.0%
+		displayFolder: 12 Stock Movement Intelligence
+
+	measure 'Net Outflow Quantity' = MAX([Stock Out Quantity] - [Stock In Quantity], 0)
+		formatString: #,##0
+		displayFolder: 12 Stock Movement Intelligence
+
+	measure 'Top 10 Product Net Outflow' = VAR Rnk = RANKX(ALLSELECTED('Dim Stock Item'[SKU Label]), [Net Outflow Quantity], , DESC, DENSE) RETURN IF(Rnk <= 10 && [Net Outflow Quantity] > 0, [Net Outflow Quantity])
+		formatString: #,##0
+		displayFolder: 12 Stock Movement Intelligence
+
+	measure 'Top 10 Transaction Type Volume' = VAR Rnk = RANKX(ALLSELECTED('Dim Transaction Type'[Transaction Type]), [Stock Movement Volume], , DESC, DENSE) RETURN IF(Rnk <= 10, [Stock Movement Volume])
+		formatString: #,##0
+		displayFolder: 12 Stock Movement Intelligence
+
+	measure 'Top 10 Supplier Stock In' = VAR Rnk = RANKX(ALLSELECTED('Dim Supplier'[Supplier]), [Stock In Quantity], , DESC, DENSE) RETURN IF(Rnk <= 10 && [Stock In Quantity] > 0, [Stock In Quantity])
+		formatString: #,##0
+		displayFolder: 12 Stock Movement Intelligence
+
+	measure 'Top 10 Customer Stock Out' = VAR Rnk = RANKX(ALLSELECTED('Dim Customer'[Customer]), [Stock Out Quantity], , DESC, DENSE) RETURN IF(Rnk <= 10 && [Stock Out Quantity] > 0, [Stock Out Quantity])
+		formatString: #,##0
+		displayFolder: 12 Stock Movement Intelligence
+
+	measure 'Latest Sales Date' = MAX('Fact Sales Demand'[Invoice Date Key])
+		formatString: yyyy-mm-dd
+		displayFolder: 13 Model QA
+
+	measure 'Latest Order Date' = MAX('Fact Order Fulfillment'[Order Date Key])
+		formatString: yyyy-mm-dd
+		displayFolder: 13 Model QA
+
+	measure 'Latest Movement Date' = MAX('Fact Stock Movement'[Date Key])
+		formatString: yyyy-mm-dd
+		displayFolder: 13 Model QA
+
+	column Dummy
+		isHidden
+		sourceColumn: [Dummy]
+		summarizeBy: none
+
+	partition _Measures = calculated
+		mode: import
+		source = ROW("Dummy", BLANK())

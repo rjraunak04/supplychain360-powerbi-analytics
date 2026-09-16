@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "421b27a93a92deadf326",
+  "position": {
+    "x": 1500,
+    "y": 110,
+    "z": 1500,
+    "height": 62,
+    "width": 400,
+    "tabOrder": 3003
+  },
+  "visual": {
+    "visualType": "slicer",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact Stock Movement"
+                    }
+                  },
+                  "Property": "Movement Source"
+                }
+              },
+              "queryRef": "Fact Stock Movement.Movement Source",
+              "nativeQueryRef": "Source"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

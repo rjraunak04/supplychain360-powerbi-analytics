@@ -1,0 +1,56 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "4f213d49448157071c5c",
+  "position": {
+    "x": 30,
+    "y": 775,
+    "z": 1000,
+    "height": 270,
+    "width": 600,
+    "tabOrder": 3015
+  },
+  "visual": {
+    "visualType": "donutChart",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact Sales Demand"
+                    }
+                  },
+                  "Property": "Delivery Speed Category"
+                }
+              },
+              "queryRef": "Fact Sales Demand.Delivery Speed Category",
+              "nativeQueryRef": "Delivery Speed Category"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Total Revenue"
+                }
+              },
+              "queryRef": "_Measures.Total Revenue",
+              "nativeQueryRef": "Total Revenue"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
