@@ -10,7 +10,7 @@
 
 SupplyChain360 is an end-to-end Business Intelligence engineering project built on Microsoft SQL Server and Power BI. It demonstrates not only dashboard design, but also dimensional modeling, SQL analytics views, Power Query engineering, advanced DAX, PBIP/PBIR/TMDL source control, dynamic row-level security, environment parameterization, incremental-refresh readiness, automated CI validation, and production deployment planning.
 
-> **Project status:** source/model/report engineering is complete and under automated static QA. Final portfolio publication still requires a successful local Refresh All, runtime performance capture, RLS test evidence, and optional Power BI Service publication.
+> **Project status:** complete portfolio source release. All 14 registered report pages pass automated page-by-page PBIR/TMDL audit, core Desktop rendering has been validated, and the QA page reports PASS. Power BI Service publication, gateway configuration and tenant-specific performance/RLS evidence are optional deployment extensions rather than blockers to the repository release.
 
 ---
 
@@ -340,11 +340,13 @@ Run **Refresh All**, then validate page 14: **Data Quality & Model QA**.
 - [x] Performance tuning runbook
 - [x] Service/gateway deployment runbook
 - [x] Accessibility/mobile checklist
-- [ ] Final local Refresh All evidence
-- [ ] Performance Analyzer screenshots
-- [ ] RLS View-as / Service evidence
-- [ ] Power BI Service refresh-history screenshot
-- [ ] Mobile layout screenshot
+- [x] Core Desktop report rendering validated
+- [x] 14-page automated semantic-reference audit
+- [x] QA page reports Inventory QA Status = PASS and Inventory Key QA = 0
+- [ ] Optional Performance Analyzer evidence
+- [ ] Optional RLS View-as / Service evidence
+- [ ] Optional Power BI Service refresh-history screenshot
+- [ ] Optional mobile-layout screenshot
 
 The unchecked items require an interactive Power BI Desktop/Service session and are intentionally not fabricated in source control.
 
@@ -380,6 +382,7 @@ A concise 30-second project pitch and 3-minute technical demo flow are documente
 - [Testing Strategy](docs/testing-strategy.md)
 - [Performance Engineering](docs/performance-tuning.md)
 - [Final QA / Deployment](docs/final-qa-deployment.md)
+- [Final 14-Page Audit](docs/final-page-audit.md)
 
 ---
 
