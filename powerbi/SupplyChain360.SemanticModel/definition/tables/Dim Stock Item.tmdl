@@ -196,7 +196,7 @@ table 'Dim Stock Item'
 		mode: import
 		source =
 				let
-				    Source = Sql.Database("localhost", "WideWorldImportersDW"),
+				    Source = Sql.Database(ServerName, DatabaseName),
 				    Base = Source{[Schema="Dimension",Item="Stock Item"]}[Data],
 				    AddedCurrentFlag = Table.AddColumn(Base, "Is Current", each Date.From([Valid To]) = #date(9999, 12, 31), type logical),
 				    AddedSkuLabel = Table.AddColumn(AddedCurrentFlag, "SKU Label", each "SKU " & Text.From([WWI Stock Item ID]) & " — " & [Stock Item], type text)
