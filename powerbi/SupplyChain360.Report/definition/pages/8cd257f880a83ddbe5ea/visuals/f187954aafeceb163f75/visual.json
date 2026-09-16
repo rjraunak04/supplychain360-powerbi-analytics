@@ -49,25 +49,25 @@
               "nativeQueryRef": "Outstanding"
             }
           ]
-        },
-        "sortDefinition": {
-          "sort": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "Top 10 Product Outstanding Quantity"
-                }
-              },
-              "direction": "Descending"
-            }
-          ],
-          "isDefaultSort": true
         }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Measures"
+                  }
+                },
+                "Property": "Top 10 Product Outstanding Quantity"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
       }
     },
     "objects": {
