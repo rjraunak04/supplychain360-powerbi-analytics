@@ -9,7 +9,7 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 0
 
-annotation PBI_QueryOrder = ["Fact Inventory","Fact Order Fulfillment","Fact Procurement","Fact Sales Demand","Fact Stock Movement","Dim City","Dim Customer","Dim Date","Dim Employee","Dim Stock Item","Dim Supplier","Dim Transaction Type"]
+annotation PBI_QueryOrder = ["Fact Inventory","Fact Order Fulfillment","Fact Procurement","Fact Sales Demand","Fact Stock Movement","Dim City","Dim Customer","Dim Date","Dim Employee","Dim Stock Item","Dim Supplier","Dim Transaction Type","Security User Access"]
 
 annotation PBI_ProTooling = ["DevMode"]
 
