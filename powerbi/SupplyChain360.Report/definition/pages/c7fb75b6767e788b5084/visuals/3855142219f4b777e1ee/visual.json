@@ -49,25 +49,25 @@
               "nativeQueryRef": "Orders Picked"
             }
           ]
-        },
-        "sortDefinition": {
-          "sort": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "Top 10 Picker Orders"
-                }
-              },
-              "direction": "Descending"
-            }
-          ],
-          "isDefaultSort": true
         }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Measures"
+                  }
+                },
+                "Property": "Top 10 Picker Orders"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
       }
     },
     "objects": {
