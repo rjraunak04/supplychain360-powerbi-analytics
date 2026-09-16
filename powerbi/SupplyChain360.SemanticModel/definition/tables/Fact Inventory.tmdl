@@ -127,12 +127,12 @@ table 'Fact Inventory'
 				let
 				    Source = Sql.Database(ServerName, DatabaseName),
 				    Data = Source{[Schema="analytics",Item="vw_inventory"]}[Data],
-				    StockItems = Source{[Schema="Dimension",Item="Stock Item"]}[Data],
-				    CurrentStockItems = Table.SelectRows(StockItems, each Date.From([Valid To]) = #date(9999, 12, 31)),
-				    CurrentKeys = Table.Distinct(Table.SelectColumns(CurrentStockItems, {"Stock Item Key"})),
-				    CurrentInventory = Table.NestedJoin(Data, {"Stock Item Key"}, CurrentKeys, {"Stock Item Key"}, "_CurrentSKU", JoinKind.Inner),
-				    FilteredInventory = Table.RemoveColumns(CurrentInventory, {"_CurrentSKU"}),
-				    SelectedColumns = Table.SelectColumns(FilteredInventory, {"Stock Holding Key", "Stock Item Key", "Quantity On Hand", "Bin Location", "Last Stocktake Quantity", "Last Cost Price", "Reorder Level", "Target Stock Level", "Inventory Value", "Stock Above Reorder", "Gap To Target", "Inventory Status"}),
+				    NormalizedColumns = if Table.HasColumns(Data, "Stock Above Reorder")
+				        then Data
+				        else if Table.HasColumns(Data, "Stock Above Reorder Level")
+				            then Table.RenameColumns(Data, {{"Stock Above Reorder Level", "Stock Above Reorder"}})
+				            else Table.AddColumn(Data, "Stock Above Reorder", each [Quantity On Hand] - [Reorder Level], Int64.Type),
+				    SelectedColumns = Table.SelectColumns(NormalizedColumns, {"Stock Holding Key", "Stock Item Key", "Quantity On Hand", "Bin Location", "Last Stocktake Quantity", "Last Cost Price", "Reorder Level", "Target Stock Level", "Inventory Value", "Stock Above Reorder", "Gap To Target", "Inventory Status"}),
 				    AddedStatusSort = Table.AddColumn(SelectedColumns, "Inventory Status Sort", each if [Inventory Status] = "Stockout" then 1 else if [Inventory Status] = "Reorder Required" then 2 else if [Inventory Status] = "Overstock" then 3 else if [Inventory Status] = "Healthy" then 4 else 9, Int64.Type)
 				in
 				    AddedStatusSort
