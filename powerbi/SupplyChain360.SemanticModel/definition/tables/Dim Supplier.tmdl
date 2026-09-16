@@ -106,7 +106,7 @@ table 'Dim Supplier'
 		mode: import
 		source =
 				let
-				    Source = Sql.Database("localhost", "WideWorldImportersDW"),
+				    Source = Sql.Database(ServerName, DatabaseName),
 				    Dimension_Supplier = Source{[Schema="Dimension",Item="Supplier"]}[Data]
 				in
 				    Dimension_Supplier
