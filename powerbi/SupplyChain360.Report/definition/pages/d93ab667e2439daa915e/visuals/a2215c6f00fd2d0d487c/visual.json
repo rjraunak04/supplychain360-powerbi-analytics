@@ -49,25 +49,25 @@
               "nativeQueryRef": "Stock In"
             }
           ]
-        },
-        "sortDefinition": {
-          "sort": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "Top 10 Supplier Stock In"
-                }
-              },
-              "direction": "Descending"
-            }
-          ],
-          "isDefaultSort": true
         }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Measures"
+                  }
+                },
+                "Property": "Top 10 Supplier Stock In"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
       }
     },
     "objects": {
