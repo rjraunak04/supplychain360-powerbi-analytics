@@ -1,0 +1,38 @@
+name: Package SupplyChain360 Source
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate project
+        run: python scripts/validate_powerbi_project.py
+
+      - name: Build source release bundle
+        run: python scripts/package_release.py
+
+      - name: Upload release artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SupplyChain360-source
+          path: dist/SupplyChain360-source.zip
+          if-no-files-found: error
+          retention-days: 30
