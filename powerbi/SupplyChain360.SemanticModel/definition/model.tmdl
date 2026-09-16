@@ -26,6 +26,34 @@ ref table 'Dim Stock Item'
 ref table 'Dim Supplier'
 ref table 'Dim Transaction Type'
 ref table _Measures
+ref table 'Security User Access'
+
 
 ref cultureInfo en-US
 
+
+expression ServerName = "localhost" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+expression DatabaseName = "WideWorldImportersDW" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+expression EnvironmentName = "DEV" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+expression RangeStart = #datetime(2013, 1, 1, 0, 0, 0) meta [IsParameterQuery=true, Type="DateTime", IsParameterQueryRequired=true]
+expression RangeEnd = #datetime(2017, 1, 1, 0, 0, 0) meta [IsParameterQuery=true, Type="DateTime", IsParameterQueryRequired=true]
+
+role Executive
+	modelPermission: read
+
+role 'Regional Manager'
+	modelPermission: read
+
+	tablePermission 'Dim City' =
+			VAR __UPN = LOWER(USERPRINCIPALNAME())
+			RETURN
+				COUNTROWS(
+					FILTER(
+						'Security User Access',
+						LOWER('Security User Access'[UserPrincipalName]) = __UPN
+							&& (
+								'Security User Access'[State Province] = 'Dim City'[State Province]
+								|| 'Security User Access'[State Province] = "*"
+							)
+					)
+				) > 0
