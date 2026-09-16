@@ -58,7 +58,7 @@ SELECT
     ) AS [Inventory Value],
 
     sh.[Quantity On Hand] - sh.[Reorder Level]
-        AS [Stock Above Reorder Level],
+        AS [Stock Above Reorder],
 
     sh.[Target Stock Level] - sh.[Quantity On Hand]
         AS [Gap To Target],
@@ -102,6 +102,7 @@ SELECT
 
 FROM Fact.[Stock Holding] AS sh
 
-LEFT JOIN Dimension.[Stock Item] AS si
-    ON sh.[Stock Item Key] = si.[Stock Item Key];
+INNER JOIN Dimension.[Stock Item] AS si
+    ON sh.[Stock Item Key] = si.[Stock Item Key]
+   AND CAST(si.[Valid To] AS date) = '9999-12-31';
 GO
