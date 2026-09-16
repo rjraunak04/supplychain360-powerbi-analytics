@@ -292,12 +292,19 @@ python scripts/validate_powerbi_project.py
 
 ### 3. Create/refresh SQL analytics layer
 
-Run the SQL scripts under:
+Run this one-shot installer first in SSMS:
 
 ```text
-sql/views/
+sql/setup/00_install_analytics_layer.sql
+```
+
+Then run the validation scripts under:
+
+```text
 sql/validation/
 ```
+
+The Power BI model expects the `analytics` schema views to exist before Refresh All.
 
 ### 4. Open Power BI
 
