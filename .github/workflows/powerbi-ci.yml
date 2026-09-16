@@ -1,0 +1,44 @@
+name: SupplyChain360 Quality Gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate-powerbi-project:
+    name: Validate PBIP / PBIR / TMDL / SQL
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run SupplyChain360 static quality gate
+        run: python scripts/validate_powerbi_project.py
+
+      - name: Reject accidental large binaries
+        shell: bash
+        run: |
+          set -euo pipefail
+          if find . -type f \( -name "*.pbix" -o -name "*.pbit" \) -print -quit | grep -q .; then
+            echo "PBIX/PBIT binaries must not be committed. Use PBIP/PBIR/TMDL source control."
+            exit 1
+          fi
+
+      - name: Validate SQL files are present
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(find sql/views -maxdepth 1 -name '*.sql' | wc -l)" -ge 5
+          test "$(find sql/validation -maxdepth 1 -name '*.sql' | wc -l)" -ge 7
