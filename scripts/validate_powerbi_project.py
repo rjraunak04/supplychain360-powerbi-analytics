@@ -158,6 +158,16 @@ def main() -> int:
                     if vtype:
                         visual_types[vtype] = visual_types.get(vtype, 0) + 1
 
+                    # sortDefinition belongs beside queryState under visual.query,
+                    # never inside queryState. Desktop can fail to materialize the
+                    # entire report exploration when this contract is violated.
+                    query = visual.get("visual", {}).get("query", {})
+                    query_state = query.get("queryState", {}) if isinstance(query, dict) else {}
+                    check(
+                        not (isinstance(query_state, dict) and "sortDefinition" in query_state),
+                        f"Visual {visual_id} has invalid queryState.sortDefinition; move it to visual.query.sortDefinition",
+                    )
+
     check(visual_count >= 250, f"Report visual count appears unexpectedly low: {visual_count}")
     check(visual_types.get("card", 0) == 0, "Legacy 'card' visuals detected; use cardVisual")
     check(visual_types.get("cardVisual", 0) > 0, "No modern cardVisual visuals detected")
