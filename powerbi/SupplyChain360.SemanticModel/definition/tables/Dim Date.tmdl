@@ -152,7 +152,7 @@ table 'Dim Date'
 		mode: import
 		source =
 				let
-				    Source = Sql.Database("localhost", "WideWorldImportersDW"),
+				    Source = Sql.Database(ServerName, DatabaseName),
 				    Dimension_Date = Source{[Schema="Dimension",Item="Date"]}[Data],
 				    #"Added Year Month" = Table.AddColumn(Dimension_Date, "Year Month", each Date.ToText(Date.From([Date]), "MMM yyyy", "en-US"), type text),
 				    #"Added Year Month Sort" = Table.AddColumn(#"Added Year Month", "Year Month Sort", each Date.Year(Date.From([Date])) * 100 + Date.Month(Date.From([Date])), Int64.Type)
