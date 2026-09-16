@@ -1,32 +1,21 @@
-# 🚚 supplychain360-powerbi-analytics
+# SupplyChain360 — Enterprise Power BI Supply Chain Control Tower
 
-**Inventory • Procurement • Supplier • Fulfillment • Sales Intelligence**
+SupplyChain360 is an end-to-end supply-chain analytics portfolio project built on Microsoft Wide World Importers DW using SQL Server, Power Query, dimensional modeling, DAX, PBIP/PBIR and Power BI.
 
-Enterprise-grade Power BI supply-chain control tower built on Microsoft Wide World Importers DW using SQL Server, analytics views, Power Query, dimensional modeling, advanced DAX, PBIP/PBIR source control and Power BI Service-ready architecture.
+## Final dashboard coverage
 
-## Current Build Status
-- ✅ Business requirements
-- ✅ SQL analytics layer
-- ✅ KPI reconciliation
-- ✅ Star-schema semantic model
-- ✅ Centralized DAX measure table
-- ✅ PBIP / TMDL model source
-- ✅ Stage 08 Executive Control Tower
-- ✅ Inventory Intelligence + Inventory Risk Detail
-- ⏳ Remaining domain dashboard pages
-- ⏳ Power BI Service deployment
+The final PBIP contains 14 pages covering executive KPIs, inventory, procurement, fulfillment, sales, profitability, stock movement, Product 360, Supplier 360 and model QA.
 
-## Core Analytics Areas
-- Inventory health and replenishment
-- Procurement and supplier fulfillment
-- Order fulfillment and backorders
-- Sales, demand and profitability
-- Stock movement and inventory flow
+## Architecture
 
-See:
-- `docs/business-requirements.md`
-- `docs/data-model.md`
-- `docs/kpi-dictionary.md`
-- `docs/dax-measures.md`
-- `docs/dashboard-design.md`
-- `docs/model-validation.md`
+SQL Server / WideWorldImportersDW → Power Query → Star Schema → DAX → PBIR dashboards → Power BI Service.
+
+## Refresh hardening
+
+Fact Order Fulfillment sources Fact.Order directly and derives Days To Pick, Is Backordered, Backordered Quantity, Is Picked, Fulfillment Status and Picking Speed Category in Power Query. This removes the local refresh failure caused by a stale analytics.vw_order_fulfillment schema missing Days To Pick.
+
+## Quality gates
+
+Static QA passed with 14 registered report pages, zero JSON parse errors, zero broken visual field/measure references, zero broken relationship references and zero broken direct DAX table/column references.
+
+Runtime validation still requires a successful local refresh against localhost / WideWorldImportersDW.
