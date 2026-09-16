@@ -230,9 +230,10 @@ table 'Fact Sales Demand'
 		mode: import
 		source =
 				let
-				    Source = Sql.Database("localhost", "WideWorldImportersDW"),
+				    Source = Sql.Database(ServerName, DatabaseName),
 				    Data = Source{[Schema="analytics",Item="vw_sales_demand"]}[Data],
-				    SelectedColumns = Table.SelectColumns(Data, {"Sale Key", "City Key", "Customer Key", "Bill To Customer Key", "Stock Item Key", "Salesperson Key", "Invoice Date Key", "Delivery Date Key", "WWI Invoice ID", "Quantity", "Unit Price", "Tax Rate", "Total Excluding Tax", "Tax Amount", "Profit", "Total Including Tax", "Total Dry Items", "Total Chiller Items", "Profit Margin Percent", "Delivery Days", "Delivery Speed Category", "Is Loss Making", "Profitability Status"})
+				    FilteredByRange = Table.SelectRows(Data, each [Invoice Date Key] >= RangeStart and [Invoice Date Key] < RangeEnd),
+				    SelectedColumns = Table.SelectColumns(FilteredByRange, {"Sale Key", "City Key", "Customer Key", "Bill To Customer Key", "Stock Item Key", "Salesperson Key", "Invoice Date Key", "Delivery Date Key", "WWI Invoice ID", "Quantity", "Unit Price", "Tax Rate", "Total Excluding Tax", "Tax Amount", "Profit", "Total Including Tax", "Total Dry Items", "Total Chiller Items", "Profit Margin Percent", "Delivery Days", "Delivery Speed Category", "Is Loss Making", "Profitability Status"})
 				in
 				    SelectedColumns
 
