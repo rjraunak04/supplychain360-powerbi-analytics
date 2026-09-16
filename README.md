@@ -3,7 +3,7 @@
 ![Power BI](https://img.shields.io/badge/Power%20BI-PBIP%20%2F%20PBIR-F2C811?logo=powerbi&logoColor=black)
 ![SQL Server](https://img.shields.io/badge/SQL%20Server-WideWorldImportersDW-CC2927?logo=microsoftsqlserver&logoColor=white)
 ![DAX](https://img.shields.io/badge/DAX-112%20Measures-2563EB)
-![CI](https://img.shields.io/badge/GitHub%20Actions-Quality%20Gate-2088FF?logo=githubactions&logoColor=white)
+![CI](https://github.com/rjraunak04/supplychain360-powerbi-analytics/actions/workflows/powerbi-ci.yml/badge.svg)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 **Inventory • Procurement • Supplier Performance • Fulfillment • Sales • Profitability • Stock Movement**
