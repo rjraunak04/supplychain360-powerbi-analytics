@@ -30,7 +30,7 @@ jobs:
         run: python scripts/package_release.py
 
       - name: Upload release artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: SupplyChain360-source
           path: dist/SupplyChain360-source.zip
