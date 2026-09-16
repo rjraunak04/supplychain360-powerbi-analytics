@@ -379,3 +379,27 @@ A concise 30-second project pitch and 3-minute technical demo flow are documente
 ## License
 
 MIT License.
+
+
+---
+
+## Further engineering documentation
+
+- [Stage 15 — Production & Recruiter Hardening](docs/stage-15-production-hardening.md)
+- [Architecture Decisions](docs/architecture-decisions.md)
+- [Data Governance & Lineage](docs/data-governance-lineage.md)
+- [Security & RLS](docs/security-rls.md)
+- [Object-Level Security Design](docs/object-level-security.md)
+- [Environment Configuration](docs/environment-configuration.md)
+- [Incremental Refresh Strategy](docs/incremental-refresh.md)
+- [Performance Engineering](docs/performance-tuning.md)
+- [Testing Strategy](docs/testing-strategy.md)
+- [CI/CD Strategy](docs/ci-cd.md)
+- [Monitoring & Operational SLA](docs/monitoring-and-sla.md)
+- [Power BI Service Deployment](docs/power-bi-service-deployment.md)
+- [Release Gate Checklist](docs/release-checklist.md)
+- [Accessibility & Mobile](docs/accessibility-mobile.md)
+- [Recruiter Walkthrough](docs/recruiter-walkthrough.md)
+- [Recruiter Skill Matrix](docs/recruiter-skill-matrix.md)
+
+Interactive runtime evidence is tracked in GitHub Issue #1.
