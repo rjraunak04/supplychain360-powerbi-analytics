@@ -134,7 +134,7 @@ table 'Dim City'
 		mode: import
 		source =
 				let
-				    Source = Sql.Database("localhost", "WideWorldImportersDW"),
+				    Source = Sql.Database(ServerName, DatabaseName),
 				    Dimension_City = Source{[Schema="Dimension",Item="City"]}[Data]
 				in
 				    Dimension_City
