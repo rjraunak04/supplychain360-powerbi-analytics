@@ -1,2 +1,27 @@
+# Power BI local/runtime artifacts
+**/.pbi/
 **/.pbi/localSettings.json
 **/.pbi/cache.abf
+*.pbix
+*.pbit
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Secrets / local environment files
+.env
+.env.*
+!.env.example
+*.secrets.json
+
+# Temporary exports
+exports/
+tmp/
