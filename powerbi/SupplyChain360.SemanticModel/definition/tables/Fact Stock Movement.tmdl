@@ -151,7 +151,8 @@ table 'Fact Stock Movement'
 				let
 				    Source = Sql.Database(ServerName, DatabaseName),
 				    Data = Source{[Schema="analytics",Item="vw_stock_movement"]}[Data],
-				    FilteredByRange = Table.SelectRows(Data, each [Date Key] >= RangeStart and [Date Key] < RangeEnd),
+				    TypedRangeDate = Table.TransformColumnTypes(Data, {{"Date Key", type datetime}}),
+				    FilteredByRange = Table.SelectRows(TypedRangeDate, each [Date Key] >= RangeStart and [Date Key] < RangeEnd),
 				    SelectedColumns = Table.SelectColumns(FilteredByRange, {"Movement Key", "Date Key", "Stock Item Key", "Customer Key", "Supplier Key", "Transaction Type Key", "WWI Stock Item Transaction ID", "WWI Invoice ID", "WWI Purchase Order ID", "Quantity", "Absolute Movement Quantity", "Flow Direction", "Stock In Quantity", "Stock Out Quantity", "Movement Source"})
 				in
 				    SelectedColumns
