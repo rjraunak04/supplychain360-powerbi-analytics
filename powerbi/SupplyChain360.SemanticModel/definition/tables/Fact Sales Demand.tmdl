@@ -232,7 +232,8 @@ table 'Fact Sales Demand'
 				let
 				    Source = Sql.Database(ServerName, DatabaseName),
 				    Data = Source{[Schema="analytics",Item="vw_sales_demand"]}[Data],
-				    FilteredByRange = Table.SelectRows(Data, each [Invoice Date Key] >= RangeStart and [Invoice Date Key] < RangeEnd),
+				    TypedRangeDate = Table.TransformColumnTypes(Data, {{"Invoice Date Key", type datetime}}),
+				    FilteredByRange = Table.SelectRows(TypedRangeDate, each [Invoice Date Key] >= RangeStart and [Invoice Date Key] < RangeEnd),
 				    SelectedColumns = Table.SelectColumns(FilteredByRange, {"Sale Key", "City Key", "Customer Key", "Bill To Customer Key", "Stock Item Key", "Salesperson Key", "Invoice Date Key", "Delivery Date Key", "WWI Invoice ID", "Quantity", "Unit Price", "Tax Rate", "Total Excluding Tax", "Tax Amount", "Profit", "Total Including Tax", "Total Dry Items", "Total Chiller Items", "Profit Margin Percent", "Delivery Days", "Delivery Speed Category", "Is Loss Making", "Profitability Status"})
 				in
 				    SelectedColumns
