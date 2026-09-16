@@ -129,9 +129,10 @@ table 'Fact Procurement'
 		mode: import
 		source =
 				let
-				    Source = Sql.Database("localhost", "WideWorldImportersDW"),
+				    Source = Sql.Database(ServerName, DatabaseName),
 				    Data = Source{[Schema="analytics",Item="vw_procurement"]}[Data],
-				    SelectedColumns = Table.SelectColumns(Data, {"Purchase Key", "Date Key", "Supplier Key", "Stock Item Key", "WWI Purchase Order ID", "Ordered Outers", "Ordered Quantity", "Received Outers", "Received Quantity", "Outstanding Quantity", "Receipt Fulfillment Percent", "Is Order Finalized", "Receipt Status"})
+				    FilteredByRange = Table.SelectRows(Data, each [Date Key] >= RangeStart and [Date Key] < RangeEnd),
+				    SelectedColumns = Table.SelectColumns(FilteredByRange, {"Purchase Key", "Date Key", "Supplier Key", "Stock Item Key", "WWI Purchase Order ID", "Ordered Outers", "Ordered Quantity", "Received Outers", "Received Quantity", "Outstanding Quantity", "Receipt Fulfillment Percent", "Is Order Finalized", "Receipt Status"})
 				in
 				    SelectedColumns
 
