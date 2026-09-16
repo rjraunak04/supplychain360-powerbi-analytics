@@ -220,7 +220,8 @@ table 'Fact Order Fulfillment'
 				let
 				    Source = Sql.Database(ServerName, DatabaseName),
 				    Data = Source{[Schema="Fact",Item="Order"]}[Data],
-				    SelectedColumns = Table.SelectColumns(Data, {"Order Key", "City Key", "Customer Key", "Stock Item Key", "Salesperson Key", "Picker Key", "Order Date Key", "Picked Date Key", "WWI Order ID", "WWI Backorder ID", "Quantity", "Unit Price", "Tax Rate", "Total Excluding Tax", "Tax Amount", "Total Including Tax"}),
+				    FilteredByRange = Table.SelectRows(Data, each [Order Date Key] >= RangeStart and [Order Date Key] < RangeEnd),
+				    SelectedColumns = Table.SelectColumns(FilteredByRange, {"Order Key", "City Key", "Customer Key", "Stock Item Key", "Salesperson Key", "Picker Key", "Order Date Key", "Picked Date Key", "WWI Order ID", "WWI Backorder ID", "Quantity", "Unit Price", "Tax Rate", "Total Excluding Tax", "Tax Amount", "Total Including Tax"}),
 				    AddedBackordered = Table.AddColumn(SelectedColumns, "Is Backordered", each if [WWI Backorder ID] = null then 0 else 1, Int64.Type),
 				    AddedBackorderedQty = Table.AddColumn(AddedBackordered, "Backordered Quantity", each if [WWI Backorder ID] = null then 0 else [Quantity], Int64.Type),
 				    AddedPicked = Table.AddColumn(AddedBackorderedQty, "Is Picked", each if [Picked Date Key] = null then 0 else 1, Int64.Type),
