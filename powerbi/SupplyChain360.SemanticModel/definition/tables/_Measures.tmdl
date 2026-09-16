@@ -350,7 +350,7 @@ table _Measures
 		formatString: #,##0
 		displayFolder: 10 Fulfillment Intelligence
 
-	measure 'Top 10 Customer Backordered Units' = VAR Rnk = RANKX(ALLSELECTED('Dim Customer'[Customer]), [Backordered Units], , DESC, DENSE) RETURN IF(Rnk <= 10 && [Backordered Units] > 0, [Backordered Units])
+	measure 'Top 10 Customer Backordered Units' = VAR CurrentCustomer = SELECTEDVALUE('Dim Customer'[Customer]) VAR Rnk = RANKX(FILTER(ALLSELECTED('Dim Customer'[Customer]), 'Dim Customer'[Customer] <> "Unknown" && NOT ISBLANK('Dim Customer'[Customer])), [Backordered Units], , DESC, DENSE) RETURN IF(CurrentCustomer <> "Unknown" && NOT ISBLANK(CurrentCustomer) && Rnk <= 10 && [Backordered Units] > 0, [Backordered Units])
 		formatString: #,##0
 		displayFolder: 10 Fulfillment Intelligence
 
@@ -358,7 +358,11 @@ table _Measures
 		formatString: #,##0
 		displayFolder: 10 Fulfillment Intelligence
 
-	measure 'Top 10 Picker Orders' = VAR Rnk = RANKX(ALLSELECTED('Dim Employee'[Employee]), [Picked Orders by Picker], , DESC, DENSE) RETURN IF(Rnk <= 10, [Picked Orders by Picker])
+	measure 'Top 10 State Backordered Units' = VAR CurrentState = SELECTEDVALUE('Dim City'[State Province]) VAR Rnk = RANKX(FILTER(ALLSELECTED('Dim City'[State Province]), NOT ISBLANK('Dim City'[State Province])), [Backordered Units], , DESC, DENSE) RETURN IF(NOT ISBLANK(CurrentState) && Rnk <= 10 && [Backordered Units] > 0, [Backordered Units])
+		formatString: #,##0
+		displayFolder: 10 Fulfillment Intelligence
+
+	measure 'Top 10 Picker Orders' = VAR CurrentEmployee = SELECTEDVALUE('Dim Employee'[Employee]) VAR Rnk = RANKX(FILTER(ALLSELECTED('Dim Employee'[Employee]), 'Dim Employee'[Employee] <> "Unknown" && NOT ISBLANK('Dim Employee'[Employee])), [Picked Orders by Picker], , DESC, DENSE) RETURN IF(CurrentEmployee <> "Unknown" && NOT ISBLANK(CurrentEmployee) && Rnk <= 10, [Picked Orders by Picker])
 		formatString: #,##0
 		displayFolder: 10 Fulfillment Intelligence
 
@@ -378,7 +382,7 @@ table _Measures
 		formatString: #,##0
 		displayFolder: 11 Sales & Profitability
 
-	measure 'Loss Making Lines' = CALCULATE([Sales Lines], 'Fact Sales Demand'[Is Loss Making] = TRUE())
+	measure 'Loss Making Lines' = CALCULATE([Sales Lines], 'Fact Sales Demand'[Is Loss Making] = 1)
 		formatString: #,##0
 		displayFolder: 11 Sales & Profitability
 
@@ -386,7 +390,7 @@ table _Measures
 		formatString: 0.0%
 		displayFolder: 11 Sales & Profitability
 
-	measure 'Loss Making Revenue' = CALCULATE([Total Revenue], 'Fact Sales Demand'[Is Loss Making] = TRUE())
+	measure 'Loss Making Revenue' = CALCULATE([Total Revenue], 'Fact Sales Demand'[Is Loss Making] = 1)
 		formatString: $#,##0.00
 		displayFolder: 11 Sales & Profitability
 
@@ -398,11 +402,11 @@ table _Measures
 		formatString: $#,##0.00
 		displayFolder: 11 Sales & Profitability
 
-	measure 'Top 10 Customer Revenue' = VAR Rnk = RANKX(ALLSELECTED('Dim Customer'[Customer]), [Total Revenue], , DESC, DENSE) RETURN IF(Rnk <= 10, [Total Revenue])
+	measure 'Top 10 Customer Revenue' = VAR CurrentCustomer = SELECTEDVALUE('Dim Customer'[Customer]) VAR Rnk = RANKX(FILTER(ALLSELECTED('Dim Customer'[Customer]), 'Dim Customer'[Customer] <> "Unknown" && NOT ISBLANK('Dim Customer'[Customer])), [Total Revenue], , DESC, DENSE) RETURN IF(CurrentCustomer <> "Unknown" && NOT ISBLANK(CurrentCustomer) && Rnk <= 10, [Total Revenue])
 		formatString: $#,##0.00
 		displayFolder: 11 Sales & Profitability
 
-	measure 'Top 10 Customer Profit' = VAR Rnk = RANKX(ALLSELECTED('Dim Customer'[Customer]), [Total Profit], , DESC, DENSE) RETURN IF(Rnk <= 10, [Total Profit])
+	measure 'Top 10 Customer Profit' = VAR CurrentCustomer = SELECTEDVALUE('Dim Customer'[Customer]) VAR Rnk = RANKX(FILTER(ALLSELECTED('Dim Customer'[Customer]), 'Dim Customer'[Customer] <> "Unknown" && NOT ISBLANK('Dim Customer'[Customer])), [Total Profit], , DESC, DENSE) RETURN IF(CurrentCustomer <> "Unknown" && NOT ISBLANK(CurrentCustomer) && Rnk <= 10, [Total Profit])
 		formatString: $#,##0.00
 		displayFolder: 11 Sales & Profitability
 
@@ -438,7 +442,7 @@ table _Measures
 		formatString: #,##0
 		displayFolder: 12 Stock Movement Intelligence
 
-	measure 'Top 10 Customer Stock Out' = VAR Rnk = RANKX(ALLSELECTED('Dim Customer'[Customer]), [Stock Out Quantity], , DESC, DENSE) RETURN IF(Rnk <= 10 && [Stock Out Quantity] > 0, [Stock Out Quantity])
+	measure 'Top 10 Customer Stock Out' = VAR CurrentCustomer = SELECTEDVALUE('Dim Customer'[Customer]) VAR Rnk = RANKX(FILTER(ALLSELECTED('Dim Customer'[Customer]), 'Dim Customer'[Customer] <> "Unknown" && NOT ISBLANK('Dim Customer'[Customer])), [Stock Out Quantity], , DESC, DENSE) RETURN IF(CurrentCustomer <> "Unknown" && NOT ISBLANK(CurrentCustomer) && Rnk <= 10 && [Stock Out Quantity] > 0, [Stock Out Quantity])
 		formatString: #,##0
 		displayFolder: 12 Stock Movement Intelligence
 
