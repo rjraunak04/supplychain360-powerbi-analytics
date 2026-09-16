@@ -39,8 +39,9 @@ def chart_obj(labels=False):
 
 def bar(name,x,y,w,h,ct,cc,mt,mm,catname=None,measname=None,tab=3000):
     qs={'Category':{'projections':[col(ct,cc,catname)]},'Y':{'projections':[measure(mt,mm,measname)]}}
-    qs['sortDefinition']={'sort':[{'field':{'Measure':{'Expression':{'SourceRef':{'Entity':mt}},'Property':mm}},'direction':'Descending'}],'isDefaultSort':True}
-    return visual(name,x,y,w,h,'clusteredBarChart',qs,chart_obj(True),tab=tab)
+    d=visual(name,x,y,w,h,'clusteredBarChart',qs,chart_obj(True),tab=tab)
+    d['visual']['query']['sortDefinition']={'sort':[{'field':{'Measure':{'Expression':{'SourceRef':{'Entity':mt}},'Property':mm}},'direction':'Descending'}],'isDefaultSort':True}
+    return d
 def line(name,x,y,w,h,ct,cc,measures,catname=None,tab=3000):
     qs={'Category':{'projections':[col(ct,cc,catname)]},'Y':{'projections':[measure(t,m,n) for t,m,n in measures]}}
     return visual(name,x,y,w,h,'lineChart',qs,chart_obj(False),tab=tab)
