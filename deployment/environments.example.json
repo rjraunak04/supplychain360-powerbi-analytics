@@ -1,0 +1,17 @@
+{
+  "DEV": {
+    "ServerName": "localhost",
+    "DatabaseName": "WideWorldImportersDW",
+    "EnvironmentName": "DEV"
+  },
+  "TEST": {
+    "ServerName": "test-sql-host",
+    "DatabaseName": "WideWorldImportersDW",
+    "EnvironmentName": "TEST"
+  },
+  "PROD": {
+    "ServerName": "prod-sql-host",
+    "DatabaseName": "WideWorldImportersDW",
+    "EnvironmentName": "PROD"
+  }
+}
