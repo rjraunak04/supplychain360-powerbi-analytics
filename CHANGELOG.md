@@ -6,7 +6,7 @@ All notable project changes are documented here.
 
 ### Portfolio source release
 - Completed 14-page supply-chain control tower
-- 112 explicit DAX measures across inventory, procurement, fulfillment, sales, profitability and movement
+- 113 explicit DAX measures across inventory, procurement, fulfillment, sales, profitability and movement
 - Added Product 360 and Supplier 360 entity views
 - Added Data Quality & Model QA acceptance page
 - Added SQL analytics installer and reconciliation layer
@@ -53,7 +53,7 @@ Power BI Service publication, gateway/scheduled refresh screenshots, runtime Per
 
 ### Existing analytical solution
 - 14 report pages
-- 112 explicit DAX measures
+- 113 explicit DAX measures
 - Five fact domains
 - Conformed dimension model
 - Product 360 and Supplier 360 views
