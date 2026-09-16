@@ -218,7 +218,7 @@ table 'Fact Order Fulfillment'
 		mode: import
 		source =
 				let
-				    Source = Sql.Database("localhost", "WideWorldImportersDW"),
+				    Source = Sql.Database(ServerName, DatabaseName),
 				    Data = Source{[Schema="Fact",Item="Order"]}[Data],
 				    SelectedColumns = Table.SelectColumns(Data, {"Order Key", "City Key", "Customer Key", "Stock Item Key", "Salesperson Key", "Picker Key", "Order Date Key", "Picked Date Key", "WWI Order ID", "WWI Backorder ID", "Quantity", "Unit Price", "Tax Rate", "Total Excluding Tax", "Tax Amount", "Total Including Tax"}),
 				    AddedBackordered = Table.AddColumn(SelectedColumns, "Is Backordered", each if [WWI Backorder ID] = null then 0 else 1, Int64.Type),
