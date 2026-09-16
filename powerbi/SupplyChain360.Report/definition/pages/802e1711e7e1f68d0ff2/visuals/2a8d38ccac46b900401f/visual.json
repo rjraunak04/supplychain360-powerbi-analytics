@@ -24,11 +24,11 @@
                       "Entity": "Dim City"
                     }
                   },
-                  "Property": "City"
+                  "Property": "State Province"
                 }
               },
-              "queryRef": "Dim City.City",
-              "nativeQueryRef": "City"
+              "queryRef": "Dim City.State Province",
+              "nativeQueryRef": "State Province"
             }
           ]
         },
@@ -42,10 +42,10 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Top 10 City Backordered Units"
+                  "Property": "Top 10 State Backordered Units"
                 }
               },
-              "queryRef": "_Measures.Top 10 City Backordered Units",
+              "queryRef": "_Measures.Top 10 State Backordered Units",
               "nativeQueryRef": "Backordered Units"
             }
           ]
@@ -61,7 +61,7 @@
                     "Entity": "_Measures"
                   }
                 },
-                "Property": "Top 10 City Backordered Units"
+                "Property": "Top 10 State Backordered Units"
               }
             },
             "direction": "Descending"
