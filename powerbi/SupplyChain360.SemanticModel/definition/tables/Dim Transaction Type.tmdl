@@ -65,7 +65,7 @@ table 'Dim Transaction Type'
 		mode: import
 		source =
 				let
-				    Source = Sql.Database("localhost", "WideWorldImportersDW"),
+				    Source = Sql.Database(ServerName, DatabaseName),
 				    #"Dimension_Transaction Type" = Source{[Schema="Dimension",Item="Transaction Type"]}[Data]
 				in
 				    #"Dimension_Transaction Type"
