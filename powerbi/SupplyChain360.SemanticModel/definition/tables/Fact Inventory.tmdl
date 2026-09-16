@@ -125,7 +125,7 @@ table 'Fact Inventory'
 		mode: import
 		source =
 				let
-				    Source = Sql.Database("localhost", "WideWorldImportersDW"),
+				    Source = Sql.Database(ServerName, DatabaseName),
 				    Data = Source{[Schema="analytics",Item="vw_inventory"]}[Data],
 				    StockItems = Source{[Schema="Dimension",Item="Stock Item"]}[Data],
 				    CurrentStockItems = Table.SelectRows(StockItems, each Date.From([Valid To]) = #date(9999, 12, 31)),
