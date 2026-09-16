@@ -1,0 +1,36 @@
+/// Demo dynamic RLS mapping table. Replace sample UPNs with governed production mappings before deployment.
+table 'Security User Access'
+	isHidden
+
+	column UserPrincipalName
+		dataType: string
+		summarizeBy: none
+		sourceColumn: UserPrincipalName
+
+	column 'State Province'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: State Province
+
+	column AccessLevel
+		dataType: string
+		summarizeBy: none
+		sourceColumn: AccessLevel
+
+	partition 'Security User Access' = m
+		mode: import
+		source =
+				let
+				    Source = #table(
+				        type table [UserPrincipalName = text, #"State Province" = text, AccessLevel = text],
+				        {
+				            {"regional.manager@contoso.com", "Texas", "Regional Manager"},
+				            {"regional.manager@contoso.com", "Pennsylvania", "Regional Manager"},
+				            {"west.manager@contoso.com", "California", "Regional Manager"},
+				            {"west.manager@contoso.com", "Washington", "Regional Manager"}
+				        }
+				    )
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
