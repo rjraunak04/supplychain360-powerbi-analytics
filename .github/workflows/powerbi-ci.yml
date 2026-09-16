@@ -27,6 +27,9 @@ jobs:
       - name: Run SupplyChain360 static quality gate
         run: python scripts/validate_powerbi_project.py
 
+      - name: Audit every report page against the semantic model
+        run: python scripts/audit_report_pages.py
+
       - name: Reject accidental large binaries
         shell: bash
         run: |
