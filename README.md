@@ -31,10 +31,17 @@ flowchart LR
     E[113 DAX measures]
     F[14-page PBIR report]
     G[GitHub Actions QA]
+    H[FastAPI AI Copilot]
+    I[Domain Router]
+    J[Governed SQL Tools]
+    K[Evidence + Exception Digest]
 
     A --> B --> C --> D --> E --> F
+    H --> I --> J --> B
+    J --> K
     G --> F
     G --> D
+    G --> H
 ```
 
 ### Semantic model
@@ -91,6 +98,24 @@ The model uses one-to-many dimension-to-fact relationships, hidden technical key
 - **Evidence-first agents** — read-only parameterized SQL returns traceable evidence before natural-language explanation
 - **Exception monitoring** — one endpoint collects priority inventory, supplier and fulfillment exceptions
 - **Agent evaluation** — golden business questions and regression tests run in dedicated CI
+
+## AI Copilot — verified runtime
+
+The copilot is deliberately **evidence-first**: it routes a business question to an allow-listed domain tool, executes read-only SQL against validated analytics views, and returns the evidence rows used for its answer.
+
+Live local acceptance against `WideWorldImportersDW` verified all four specialist domains:
+
+| Domain | Verified result |
+|---|---|
+| Inventory | Reorder-required SKUs with on-hand, reorder level, target stock and suggested reorder quantity |
+| Procurement | Open/not-received purchase orders with supplier and outstanding quantity |
+| Fulfillment | Backordered orders with customer, product and backordered quantity |
+| Sales | Product-level units, revenue and profit ranking |
+| Exception monitor | Combined inventory, procurement and fulfillment exception digest |
+
+The HTTP layer exposes `GET /health`, `POST /ask` and `GET /exceptions`. Portable API acceptance tests cover health, route-only execution and request validation without requiring a live SQL Server in CI.
+
+> The repository does **not** claim a hosted LLM or public cloud deployment. Metric computation and evidence come from the governed SQL layer; optional LLM synthesis is a future extension.
 
 ## Quality checks
 
@@ -171,6 +196,7 @@ Then run the validation scripts under `sql/validation/`.
 ```powershell
 python .\scripts\validate_powerbi_project.py
 python .\scripts\audit_report_pages.py
+python -m pytest tests/test_agent_router.py tests/test_agent_service.py tests/test_golden_questions.py tests/test_api.py
 ```
 
 ### 4. Open Power BI
@@ -190,6 +216,25 @@ Environment  = DEV
 ```
 
 Run **Refresh All** and review page **14 — Data Quality & Model QA**.
+
+### 5. Run the AI Copilot
+
+Install the agent dependencies:
+
+```powershell
+python -m pip install -r requirements-agent.txt
+```
+
+For the default local SQL Server configuration:
+
+```powershell
+$env:SC360_SQL_SERVER = "localhost"
+$env:SC360_SQL_DATABASE = "WideWorldImportersDW"
+$env:SC360_SQL_TRUSTED_CONNECTION = "true"
+python -m uvicorn api.main:app --host 127.0.0.1 --port 8000
+```
+
+Then use the Swagger UI at `/docs` or call `POST /ask` with a business question.
 
 ## Documentation
 
