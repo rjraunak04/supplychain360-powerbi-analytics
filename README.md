@@ -1,4 +1,4 @@
-# SupplyChain360 — Power BI Supply Chain Analytics
+# SupplyChain360 — Power BI + Agentic Supply Chain Analytics
 
 ![Power BI](https://img.shields.io/badge/Power%20BI-PBIP%20%2F%20PBIR-F2C811?logo=powerbi&logoColor=black)
 ![SQL Server](https://img.shields.io/badge/SQL%20Server-WideWorldImportersDW-CC2927?logo=microsoftsqlserver&logoColor=white)
@@ -6,7 +6,7 @@
 ![CI](https://github.com/rjraunak04/supplychain360-powerbi-analytics/actions/workflows/powerbi-ci.yml/badge.svg)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-A version-controlled Power BI project for supply-chain analysis across **inventory, procurement, order fulfillment, sales, profitability and stock movement**.
+A version-controlled supply-chain analytics project combining **Power BI, SQL engineering and an evidence-first AI copilot** across inventory, procurement, order fulfillment, sales, profitability and stock movement.
 
 The project uses Microsoft **WideWorldImportersDW** as the source warehouse and focuses on the parts of BI work that matter beyond visual design: SQL preparation, dimensional modeling, Power Query, DAX, data-quality checks, row-level security, source control and automated QA.
 
@@ -87,6 +87,10 @@ The model uses one-to-many dimension-to-fact relationships, hidden technical key
 - **Incremental-refresh readiness** — `RangeStart` / `RangeEnd` filters on growing fact tables
 - **PBIP / PBIR / TMDL source control** — report and semantic-model definitions are stored as text
 - **Automated QA** — GitHub Actions validates report/model structure and all 14 pages on every push/PR
+- **AI Copilot** — FastAPI service routes business questions to governed inventory, procurement, fulfillment and sales tools
+- **Evidence-first agents** — read-only parameterized SQL returns traceable evidence before natural-language explanation
+- **Exception monitoring** — one endpoint collects priority inventory, supplier and fulfillment exceptions
+- **Agent evaluation** — golden business questions and regression tests run in dedicated CI
 
 ## Quality checks
 
@@ -117,7 +121,10 @@ See [final-page-audit.md](docs/final-page-audit.md) for the latest page-by-page 
 
 ```text
 .
-├── .github/workflows/       # CI validation
+├── .github/workflows/       # Power BI + agent CI
+├── agent/                   # routing, governed tools, SQL evidence and monitoring
+├── api/                     # FastAPI copilot service
+├── evals/                   # golden business-question evaluation
 ├── deployment/              # environment parameter examples
 ├── docs/                    # design, KPI and QA documentation
 ├── powerbi/
@@ -200,6 +207,7 @@ The most useful technical notes are:
 - [Testing strategy](docs/testing-strategy.md)
 - [CI/CD](docs/ci-cd.md)
 - [Final 14-page audit](docs/final-page-audit.md)
+- [AI Copilot architecture](docs/ai-copilot.md)
 
 ## Notes
 
