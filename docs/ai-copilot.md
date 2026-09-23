@@ -1,34 +1,53 @@
 # SupplyChain360 AI Copilot
 
-## Goal
+SupplyChain360 includes a read-only, evidence-first agentic analytics layer on top of the existing SQL and Power BI solution.
 
-Add a read-only, evidence-first AI analytics layer without replacing the existing SQL, semantic model or Power BI report.
+## Architecture
 
-## Design principles
+User question -> FastAPI -> deterministic domain router -> governed specialist tool -> analytics SQL view -> structured evidence -> concise explanation
 
-1. **Governed tools before free-form SQL.** Agents call allow-listed analytical capabilities backed by validated project views/KPIs.
-2. **Numbers come from analytics code.** The language model explains evidence; it is not the source of KPI values.
-3. **Read-only by default.** The copilot does not modify operational data.
-4. **Traceable answers.** Responses will expose the domain/tool and evidence used.
-5. **Evaluate before adding autonomy.** Golden business questions and regression tests are added as capabilities grow.
+Specialist domains are inventory, procurement, fulfillment, and sales/demand. A proactive exception endpoint runs the first three specialist tools together for operational triage.
 
-## Target flow
+## Safety and governance
 
-User question -> router -> specialist analytics tool -> SQL evidence -> explanation -> API/chat UI
+- Database access is SELECT/CTE only.
+- The agent cannot execute arbitrary write SQL.
+- Domain tools use parameterized queries over validated analytics views.
+- KPI values come from SQL evidence, not from a language model.
+- Responses return domain, tool metadata and evidence rows for traceability.
+- The core works without an LLM; a model can later improve explanation quality without becoming the metric source.
 
-Specialist domains: inventory, procurement, fulfillment, and sales/demand.
+## API
 
-## Delivery stages
-
-- **Stage 1 (this branch):** package structure, deterministic router, governed tool catalog, FastAPI shell and tests.
-- **Stage 2:** SQL Server read-only connector, parameterized domain queries, evidence schema and integration tests.
-- **Stage 3:** LLM synthesis with citations to returned evidence, specialist graph/orchestration and golden-question evaluation.
-- **Stage 4:** scheduled exception detection and concise operational alerts.
-
-## Local foundation run
+Install and run:
 
     python -m pip install -r requirements-agent.txt
-    pytest tests/test_agent_router.py -q
     uvicorn api.main:app --reload
 
-Then open the local API documentation at /docs and try POST /ask.
+Endpoints:
+
+- GET /health - service health.
+- POST /ask - route a business question and execute its governed SQL tool.
+- GET /exceptions - collect inventory, procurement and fulfillment exceptions.
+
+Use execute=false in POST /ask to demonstrate routing without a live SQL Server connection.
+
+Example:
+
+    {"question":"Which SKUs are understocked and need reorder?","limit":10,"execute":true}
+
+## Configuration
+
+Use the variables documented in .env.example. Windows integrated authentication is the default local configuration. No credentials are committed.
+
+## Evaluation
+
+evals/golden_questions.json contains representative questions with expected specialist domains. CI runs router, service and golden-question regression tests alongside the existing Power BI validators.
+
+## Why this is agentic
+
+The application performs bounded decision routing, selects a specialist analytical capability, executes a governed data tool and returns traceable evidence. Metric computation stays separate from natural-language explanation.
+
+## Production extensions
+
+A production deployment can add an approved hosted LLM for richer synthesis, authentication, persistent audit logs, Power BI Service integration and scheduled notification delivery. Those require external deployment credentials/services and are intentionally not hard-coded into the repository.
