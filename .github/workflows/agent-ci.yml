@@ -1,14 +1,6 @@
 name: Agent Copilot CI
 
 on:
-  push:
-    paths:
-      - "agent/**"
-      - "api/**"
-      - "evals/**"
-      - "tests/**"
-      - "requirements-agent.txt"
-      - ".github/workflows/agent-ci.yml"
   pull_request:
     paths:
       - "agent/**"
@@ -17,6 +9,7 @@ on:
       - "tests/**"
       - "requirements-agent.txt"
       - ".github/workflows/agent-ci.yml"
+  workflow_dispatch:
 
 jobs:
   test:
@@ -28,7 +21,8 @@ jobs:
           python-version: "3.11"
       - run: python -m pip install --upgrade pip
       - run: pip install -r requirements-agent.txt
-      - run: pytest tests/test_agent_router.py tests/test_agent_service.py tests/test_golden_questions.py -q
+      - name: Agent regression tests
+        run: pytest tests/test_agent_router.py tests/test_agent_service.py tests/test_golden_questions.py -vv --tb=long
       - run: python -c "from api.main import app; assert app.version == '1.0.0'"
       - run: python scripts/validate_powerbi_project.py
       - run: python scripts/audit_report_pages.py
