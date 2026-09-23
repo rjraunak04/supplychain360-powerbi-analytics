@@ -5,6 +5,7 @@ on:
     paths:
       - "agent/**"
       - "api/**"
+      - "evals/**"
       - "tests/**"
       - "requirements-agent.txt"
       - ".github/workflows/agent-ci.yml"
@@ -12,6 +13,7 @@ on:
     paths:
       - "agent/**"
       - "api/**"
+      - "evals/**"
       - "tests/**"
       - "requirements-agent.txt"
       - ".github/workflows/agent-ci.yml"
@@ -26,5 +28,7 @@ jobs:
           python-version: "3.11"
       - run: python -m pip install --upgrade pip
       - run: pip install -r requirements-agent.txt
-      - run: pytest tests/test_agent_router.py -q
-      - run: python -c "from api.main import app; assert app.title == 'SupplyChain360 AI Copilot'"
+      - run: pytest tests/test_agent_router.py tests/test_agent_service.py tests/test_golden_questions.py -q
+      - run: python -c "from api.main import app; assert app.version == '1.0.0'"
+      - run: python scripts/validate_powerbi_project.py
+      - run: python scripts/audit_report_pages.py
