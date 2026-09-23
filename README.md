@@ -253,6 +253,7 @@ The most useful technical notes are:
 - [CI/CD](docs/ci-cd.md)
 - [Final 14-page audit](docs/final-page-audit.md)
 - [AI Copilot architecture](docs/ai-copilot.md)
+- [Demo & interview guide](docs/demo-interview-guide.md)
 
 ## Notes
 
