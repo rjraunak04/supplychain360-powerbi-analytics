@@ -1,0 +1,6 @@
+[
+  {"question":"Which SKUs are understocked and need reorder?","expected_domain":"inventory"},
+  {"question":"Which suppliers have open purchase orders or short receipts?","expected_domain":"procurement"},
+  {"question":"Where are backorders and picking delays concentrated?","expected_domain":"fulfillment"},
+  {"question":"Which products generate the most revenue and profit?","expected_domain":"sales"}
+]
