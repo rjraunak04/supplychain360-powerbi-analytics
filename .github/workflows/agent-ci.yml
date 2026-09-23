@@ -1,0 +1,30 @@
+name: Agent Copilot CI
+
+on:
+  push:
+    paths:
+      - "agent/**"
+      - "api/**"
+      - "tests/**"
+      - "requirements-agent.txt"
+      - ".github/workflows/agent-ci.yml"
+  pull_request:
+    paths:
+      - "agent/**"
+      - "api/**"
+      - "tests/**"
+      - "requirements-agent.txt"
+      - ".github/workflows/agent-ci.yml"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install --upgrade pip
+      - run: pip install -r requirements-agent.txt
+      - run: pytest tests/test_agent_router.py -q
+      - run: python -c "from api.main import app; assert app.title == 'SupplyChain360 AI Copilot'"
