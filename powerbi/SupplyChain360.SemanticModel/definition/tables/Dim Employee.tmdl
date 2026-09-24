@@ -3,8 +3,8 @@ table 'Dim Employee'
 
 	column 'Employee Key'
 		dataType: int64
-		isKey
 		isHidden
+		isKey
 		formatString: 0
 		lineageTag: 2569894f-95db-4afd-8320-ff53262e2bb9
 		summarizeBy: none
@@ -24,8 +24,8 @@ table 'Dim Employee'
 
 	column Employee
 		dataType: string
-		isDefaultLabel
 		lineageTag: 74ceff24-f340-4f81-9a79-196dd7b9d214
+		isDefaultLabel
 		summarizeBy: none
 		sourceColumn: Employee
 

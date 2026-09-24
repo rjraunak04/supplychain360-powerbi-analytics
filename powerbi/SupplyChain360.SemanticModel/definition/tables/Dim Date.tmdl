@@ -1,6 +1,6 @@
 table 'Dim Date'
-	dataCategory: Time
 	lineageTag: b1f14515-bdd5-43e2-b124-e1913fd8b006
+	dataCategory: Time
 
 	column Date
 		dataType: dateTime
@@ -83,7 +83,6 @@ table 'Dim Date'
 		sourceColumn: Calendar Year Label
 
 		annotation SummarizationSetBy = Automatic
-
 
 	column 'Year Month'
 		dataType: string

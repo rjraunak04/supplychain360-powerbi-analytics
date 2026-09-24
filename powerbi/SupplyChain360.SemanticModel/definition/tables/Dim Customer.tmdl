@@ -3,8 +3,8 @@ table 'Dim Customer'
 
 	column 'Customer Key'
 		dataType: int64
-		isKey
 		isHidden
+		isKey
 		formatString: 0
 		lineageTag: e9935a58-505a-49b0-bd30-30ba33f38c5e
 		summarizeBy: none
@@ -24,8 +24,8 @@ table 'Dim Customer'
 
 	column Customer
 		dataType: string
-		isDefaultLabel
 		lineageTag: 5be40423-90c5-49c9-bbbd-ab4fb80d052b
+		isDefaultLabel
 		summarizeBy: none
 		sourceColumn: Customer
 
@@ -65,8 +65,8 @@ table 'Dim Customer'
 
 	column 'Postal Code'
 		dataType: string
-		dataCategory: PostalCode
 		lineageTag: b29b7251-6a50-4490-aa65-ba649a4bdfba
+		dataCategory: PostalCode
 		summarizeBy: none
 		sourceColumn: Postal Code
 

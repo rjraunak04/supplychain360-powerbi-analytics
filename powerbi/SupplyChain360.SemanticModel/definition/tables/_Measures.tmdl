@@ -5,464 +5,574 @@ table _Measures
 	measure 'Total Inventory Value' = SUM('Fact Inventory'[Inventory Value])
 		formatString: $#,##0.00
 		displayFolder: 01 Inventory
+		lineageTag: 5ad3bdff-dd9a-422f-a8c6-c6fcf5facaf4
 
 	measure 'Quantity On Hand' = SUM('Fact Inventory'[Quantity On Hand])
 		formatString: #,##0
 		displayFolder: 01 Inventory
+		lineageTag: e3bad13e-4ec1-4a35-b41f-53e3d3b828cd
 
 	measure 'Stockout SKUs' = COALESCE(CALCULATE(DISTINCTCOUNT('Fact Inventory'[Stock Item Key]), 'Fact Inventory'[Inventory Status] = "Stockout"), 0)
 		formatString: #,##0
 		displayFolder: 01 Inventory
+		lineageTag: 011ca738-c44c-4218-b773-54dc5684de4c
 
 	measure 'Reorder Required SKUs' = CALCULATE(DISTINCTCOUNT('Fact Inventory'[Stock Item Key]), 'Fact Inventory'[Inventory Status] = "Reorder Required")
 		formatString: #,##0
 		displayFolder: 01 Inventory
+		lineageTag: 5296b3a5-384e-4467-b78c-c99244e6b9b4
 
 	measure 'Overstock SKUs' = CALCULATE(DISTINCTCOUNT('Fact Inventory'[Stock Item Key]), 'Fact Inventory'[Inventory Status] = "Overstock")
 		formatString: #,##0
 		displayFolder: 01 Inventory
+		lineageTag: 5a2db48c-c1eb-46fd-9773-18223c356097
 
 	measure 'Healthy SKUs' = CALCULATE(DISTINCTCOUNT('Fact Inventory'[Stock Item Key]), 'Fact Inventory'[Inventory Status] = "Healthy")
 		formatString: #,##0
 		displayFolder: 01 Inventory
+		lineageTag: d8e68b5a-4a6f-424e-a676-5984b802ff52
 
 	measure 'Inventory Health %' = DIVIDE([Healthy SKUs], DISTINCTCOUNT('Fact Inventory'[Stock Item Key]))
 		formatString: 0.0%
 		displayFolder: 01 Inventory
+		lineageTag: a3eb9af7-ffaf-4f0d-bf5c-286674e9f4dd
 
 	measure 'Purchase Orders' = DISTINCTCOUNT('Fact Procurement'[WWI Purchase Order ID])
 		formatString: #,##0
 		displayFolder: 02 Procurement
+		lineageTag: ff81b89c-30d3-4e5e-926b-961cc51ab4fc
 
 	measure 'Ordered Quantity' = SUM('Fact Procurement'[Ordered Quantity])
 		formatString: #,##0
 		displayFolder: 02 Procurement
+		lineageTag: e7c5f84d-c1c2-468a-9daf-2f2644d00150
 
 	measure 'Received Quantity' = SUM('Fact Procurement'[Received Quantity])
 		formatString: #,##0
 		displayFolder: 02 Procurement
+		lineageTag: 9e00fc6b-3389-4818-b5ff-70822db9e21d
 
 	measure 'Outstanding Quantity' = SUM('Fact Procurement'[Outstanding Quantity])
 		formatString: #,##0
 		displayFolder: 02 Procurement
+		lineageTag: 4148807c-38dc-40a7-9cf8-4a368207467d
 
 	measure 'Procurement Fulfillment %' = DIVIDE([Received Quantity], [Ordered Quantity])
 		formatString: 0.0%
 		displayFolder: 02 Procurement
+		lineageTag: d6045fad-3007-447d-9a1a-f8a1067f4af0
 
 	measure 'Total Orders' = DISTINCTCOUNT('Fact Order Fulfillment'[WWI Order ID])
 		formatString: #,##0
 		displayFolder: 03 Fulfillment
+		lineageTag: 7a9bf1f9-5a78-4e45-a679-49e332dd36d2
 
 	measure 'Order Lines' = COUNTROWS('Fact Order Fulfillment')
 		formatString: #,##0
 		displayFolder: 03 Fulfillment
+		lineageTag: e582130a-9ad0-44cf-bb0c-e361ab920bea
 
 	measure 'Ordered Units' = SUM('Fact Order Fulfillment'[Quantity])
 		formatString: #,##0
 		displayFolder: 03 Fulfillment
+		lineageTag: 67f9346f-2afe-40b0-bff8-cfe6290e5858
 
 	measure 'Backordered Lines' = SUM('Fact Order Fulfillment'[Is Backordered])
 		formatString: #,##0
 		displayFolder: 03 Fulfillment
+		lineageTag: 15892917-86d4-42d8-984b-758d63881eab
 
 	measure 'Backorder Rate %' = DIVIDE([Backordered Lines], [Order Lines])
 		formatString: 0.0%
 		displayFolder: 03 Fulfillment
+		lineageTag: 343ca54f-d1d0-4adf-905a-69e514efe9dc
 
 	measure 'Order Value' = SUM('Fact Order Fulfillment'[Total Including Tax])
 		formatString: $#,##0.00
 		displayFolder: 03 Fulfillment
+		lineageTag: 9f0a8747-355b-4812-bfd4-b11a538cf0a0
 
 	measure 'Total Revenue' = SUM('Fact Sales Demand'[Total Excluding Tax])
 		formatString: $#,##0.00
 		displayFolder: 04 Sales
+		lineageTag: d1b55fec-0598-4724-b549-3b0fc446ae0a
 
 	measure 'Total Profit' = SUM('Fact Sales Demand'[Profit])
 		formatString: $#,##0.00
 		displayFolder: 04 Sales
+		lineageTag: 43c14268-33d3-4a48-b214-dd9c0a8bba68
 
 	measure 'Profit Margin %' = DIVIDE([Total Profit], [Total Revenue])
 		formatString: 0.0%
 		displayFolder: 04 Sales
+		lineageTag: d8d90c71-b9a5-422d-8293-0e9949cfe9ba
 
 	measure 'Units Sold' = SUM('Fact Sales Demand'[Quantity])
 		formatString: #,##0
 		displayFolder: 04 Sales
+		lineageTag: a37d9dfe-9d3a-4ec2-8db2-0731c79dda72
 
 	measure 'Total Invoices' = DISTINCTCOUNT('Fact Sales Demand'[WWI Invoice ID])
 		formatString: #,##0
 		displayFolder: 04 Sales
+		lineageTag: c67949fa-74e6-4c17-b906-75be0d224665
 
 	measure 'Average Delivery Days' = AVERAGE('Fact Sales Demand'[Delivery Days])
 		formatString: 0.0
 		displayFolder: 04 Sales
+		lineageTag: 9ff6bdf2-58c6-4a11-aad6-3be0d4073e48
 
 	measure 'Revenue YTD' = TOTALYTD([Total Revenue], 'Dim Date'[Date])
 		formatString: $#,##0.00
 		displayFolder: 05 Time Intelligence
+		lineageTag: 4e1b7d64-9736-4637-935f-39f07a4657d4
 
 	measure 'Revenue LY' = CALCULATE([Total Revenue], SAMEPERIODLASTYEAR('Dim Date'[Date]))
 		formatString: $#,##0.00
 		displayFolder: 05 Time Intelligence
+		lineageTag: c7fcf4a0-1cba-4e7a-b8f0-6150e319f165
 
 	measure 'Revenue YoY %' = DIVIDE([Total Revenue] - [Revenue LY], [Revenue LY])
 		formatString: 0.0%
 		displayFolder: 05 Time Intelligence
+		lineageTag: 8281b5d9-877a-42d0-854a-b106ef0662ce
 
 	measure 'Profit YTD' = TOTALYTD([Total Profit], 'Dim Date'[Date])
 		formatString: $#,##0.00
 		displayFolder: 05 Time Intelligence
+		lineageTag: b86e9fe7-733b-4a8a-83a8-7ae9bc1cda6b
 
 	measure 'Revenue by Delivery Date' = CALCULATE([Total Revenue], USERELATIONSHIP('Dim Date'[Date], 'Fact Sales Demand'[Delivery Date Key]))
 		formatString: $#,##0.00
 		displayFolder: 05 Time Intelligence
+		lineageTag: 01ef4a6c-5b16-4420-b4e3-cae4e3af7ca2
 
 	measure 'Revenue by Bill-To Customer' = CALCULATE([Total Revenue], USERELATIONSHIP('Dim Customer'[Customer Key], 'Fact Sales Demand'[Bill To Customer Key]))
 		formatString: $#,##0.00
 		displayFolder: 05 Time Intelligence
+		lineageTag: 3dcd01bc-6d70-4e84-b9d4-71b226cd31e1
 
 	measure 'Stock In Quantity' = SUM('Fact Stock Movement'[Stock In Quantity])
 		formatString: #,##0
 		displayFolder: 06 Stock Movement
+		lineageTag: 4c5fa54c-4abd-4b28-beb3-a20dab684d64
 
 	measure 'Stock Out Quantity' = SUM('Fact Stock Movement'[Stock Out Quantity])
 		formatString: #,##0
 		displayFolder: 06 Stock Movement
+		lineageTag: 4bb17297-213d-4c57-a9fe-b022f6f94aa8
 
 	measure 'Net Stock Movement' = SUM('Fact Stock Movement'[Quantity])
 		formatString: #,##0
 		displayFolder: 06 Stock Movement
+		lineageTag: f0bc8a23-5d70-4c44-8f45-d8bd875f242c
 
 	measure 'Movement Events' = COUNTROWS('Fact Stock Movement')
 		formatString: #,##0
 		displayFolder: 06 Stock Movement
+		lineageTag: afc95bfa-ccb0-4403-80d2-cf2a8ea0292a
 
 	measure 'Inventory SKUs' = DISTINCTCOUNT('Fact Inventory'[Stock Item Key])
 		formatString: #,##0
 		displayFolder: 01 Inventory
+		lineageTag: ffb470ff-8e8d-4594-9525-e10944f7c47b
 
 	measure 'Pending Pick Lines' = CALCULATE(COUNTROWS('Fact Order Fulfillment'), 'Fact Order Fulfillment'[Fulfillment Status] = "Pending Pick")
 		formatString: #,##0
 		displayFolder: 03 Fulfillment
+		lineageTag: 83d2c634-a523-4452-b215-f167359002c2
 
 	measure 'Average Days to Pick' = AVERAGE('Fact Order Fulfillment'[Days To Pick])
 		formatString: 0.0
 		displayFolder: 03 Fulfillment
+		lineageTag: 434d90c1-895a-429a-a7cd-2b0bb0b536ad
 
 	measure 'Orders by Picked Date' = CALCULATE([Total Orders], USERELATIONSHIP('Dim Date'[Date], 'Fact Order Fulfillment'[Picked Date Key]))
 		formatString: #,##0
 		displayFolder: 05 Time Intelligence
-
+		lineageTag: 63d126cc-190c-461f-82ae-f668ea00eca3
 
 	measure 'Top 10 Product Units Sold' = VAR ProductRank = RANKX(ALLSELECTED('Dim Stock Item'[Stock Item]), [Units Sold], , DESC, DENSE) RETURN IF(ProductRank <= 10, [Units Sold])
 		formatString: #,##0
 		displayFolder: 07 Executive Dashboard
+		lineageTag: a2af3a0e-27b7-43b1-ab37-4eb464994948
 
 	measure 'Top 10 State Revenue' = VAR StateRank = RANKX(ALLSELECTED('Dim City'[State Province]), [Total Revenue], , DESC, DENSE) RETURN IF(StateRank <= 10, [Total Revenue])
 		formatString: $#,##0.00
 		displayFolder: 07 Executive Dashboard
-
+		lineageTag: 41313741-c332-44bc-b104-d68677afff95
 
 	measure 'Reorder Gap Units' = SUMX(FILTER('Fact Inventory', 'Fact Inventory'[Quantity On Hand] <= 'Fact Inventory'[Reorder Level]), MAX('Fact Inventory'[Gap To Target], 0))
 		formatString: #,##0
 		displayFolder: 08 Inventory Intelligence
+		lineageTag: 0639487a-48d7-4e21-aad5-22c1c3999284
 
 	measure 'Reorder Gap Value' = SUMX(FILTER('Fact Inventory', 'Fact Inventory'[Quantity On Hand] <= 'Fact Inventory'[Reorder Level]), MAX('Fact Inventory'[Gap To Target], 0) * 'Fact Inventory'[Last Cost Price])
 		formatString: $#,##0.00
 		displayFolder: 08 Inventory Intelligence
+		lineageTag: 083e79f2-2f73-432f-924b-256b3f8914ee
 
 	measure 'Excess Inventory Units' = SUMX(FILTER('Fact Inventory', 'Fact Inventory'[Quantity On Hand] > 'Fact Inventory'[Target Stock Level]), 'Fact Inventory'[Quantity On Hand] - 'Fact Inventory'[Target Stock Level])
 		formatString: #,##0
 		displayFolder: 08 Inventory Intelligence
+		lineageTag: a5d5d255-f2d2-4718-baec-8fe30afa4df3
 
 	measure 'Excess Inventory Value' = SUMX(FILTER('Fact Inventory', 'Fact Inventory'[Quantity On Hand] > 'Fact Inventory'[Target Stock Level]), ('Fact Inventory'[Quantity On Hand] - 'Fact Inventory'[Target Stock Level]) * 'Fact Inventory'[Last Cost Price])
 		formatString: $#,##0.00
 		displayFolder: 08 Inventory Intelligence
+		lineageTag: 8986adff-fba9-458a-8480-97c94417352f
 
 	measure 'Average Inventory Value per SKU' = DIVIDE([Total Inventory Value], [Inventory SKUs])
 		formatString: $#,##0.00
 		displayFolder: 08 Inventory Intelligence
+		lineageTag: 3615f0d4-01db-43ea-9145-0f1a04312e9b
 
 	measure 'Stock Movement Volume' = [Stock In Quantity] + [Stock Out Quantity]
 		formatString: #,##0
 		displayFolder: 08 Inventory Intelligence
+		lineageTag: 8294e535-3957-4219-be69-6c2d54270cb1
 
 	measure 'Top 10 Inventory Value' = VAR ProductRank = RANKX(ALLSELECTED('Dim Stock Item'[Stock Item]), [Total Inventory Value], , DESC, DENSE) RETURN IF(ProductRank <= 10, [Total Inventory Value])
 		formatString: $#,##0.00
 		displayFolder: 08 Inventory Intelligence
+		lineageTag: 7539168c-88b7-48db-84da-2308d42e63bb
 
 	measure 'Top 10 Reorder Gap Units' = VAR ProductRank = RANKX(ALLSELECTED('Dim Stock Item'[Stock Item]), [Reorder Gap Units], , DESC, DENSE) RETURN IF(ProductRank <= 10 && [Reorder Gap Units] > 0, [Reorder Gap Units])
 		formatString: #,##0
 		displayFolder: 08 Inventory Intelligence
+		lineageTag: 94e78809-6cd4-4c1c-972c-36ee6adcf800
 
 	measure 'Top 10 Excess Inventory Value' = VAR ProductRank = RANKX(ALLSELECTED('Dim Stock Item'[Stock Item]), [Excess Inventory Value], , DESC, DENSE) RETURN IF(ProductRank <= 10 && [Excess Inventory Value] > 0, [Excess Inventory Value])
 		formatString: $#,##0.00
 		displayFolder: 08 Inventory Intelligence
+		lineageTag: aa345ef0-32b8-42a4-81af-56950ee8f430
 
 	measure 'Top 10 Movement Volume' = VAR ProductRank = RANKX(ALLSELECTED('Dim Stock Item'[Stock Item]), [Stock Movement Volume], , DESC, DENSE) RETURN IF(ProductRank <= 10, [Stock Movement Volume])
 		formatString: #,##0
 		displayFolder: 08 Inventory Intelligence
-
+		lineageTag: a79db45c-7426-41cb-bf2c-cb05a21ebfd9
 
 	measure 'Inventory Rows' = COUNTROWS('Fact Inventory')
 		formatString: #,##0
 		displayFolder: 08 Inventory Intelligence\QA
+		lineageTag: 0a4dfe31-28cc-4368-9368-7ba376a1e794
 
 	measure 'Inventory Key QA' = [Inventory Rows] - [Inventory SKUs]
 		formatString: #,##0
 		displayFolder: 08 Inventory Intelligence\QA
+		lineageTag: f0c909d6-8c59-4bbf-9053-3e9b8626acbf
 
 	measure 'Inventory QA Status' = IF([Inventory Key QA] = 0, "PASS", "CHECK")
 		displayFolder: 08 Inventory Intelligence\QA
+		lineageTag: 29c686de-6990-4a5a-b4aa-961214a15e6d
 
 	measure 'Excess Inventory % of Value' = DIVIDE([Excess Inventory Value], [Total Inventory Value])
 		formatString: 0.0%
 		displayFolder: 08 Inventory Intelligence
+		lineageTag: a79cd76a-dc83-4396-8fef-bc31a47e22ad
 
 	measure 'Reorder Exposure % of Value' = DIVIDE([Reorder Gap Value], [Total Inventory Value])
 		formatString: 0.00%
 		displayFolder: 08 Inventory Intelligence
+		lineageTag: d55d46a3-d019-473e-9c3a-5c3e94dd8667
 
 	measure 'Current Reorder Level' = MAX('Fact Inventory'[Reorder Level])
 		formatString: #,##0
 		displayFolder: 08 Inventory Intelligence\SKU Detail
+		lineageTag: 3c2ad57d-34ba-4127-b3eb-78e54cd749a8
 
 	measure 'Current Target Stock Level' = MAX('Fact Inventory'[Target Stock Level])
 		formatString: #,##0
 		displayFolder: 08 Inventory Intelligence\SKU Detail
+		lineageTag: 6b5ba4a7-06fc-4b01-bb92-6361c9a2877e
 
 	measure 'Current Gap To Target' = MAX('Fact Inventory'[Gap To Target])
 		formatString: #,##0
 		displayFolder: 08 Inventory Intelligence\SKU Detail
-
+		lineageTag: 05034536-6691-4fc7-8b3b-3f939bb60e8d
 
 	measure 'Supplier Count' = DISTINCTCOUNT('Fact Procurement'[Supplier Key])
 		formatString: #,##0
 		displayFolder: 09 Procurement Intelligence
+		lineageTag: df17d6ac-d7fe-4350-8708-d7926b8f9a2c
 
 	measure 'Procurement Lines' = COUNTROWS('Fact Procurement')
 		formatString: #,##0
 		displayFolder: 09 Procurement Intelligence
+		lineageTag: 3f12a6b7-b7c3-4644-b3f4-c2225cd5a0da
 
 	measure 'Finalized Purchase Orders' = CALCULATE([Purchase Orders], 'Fact Procurement'[Is Order Finalized] = TRUE())
 		formatString: #,##0
 		displayFolder: 09 Procurement Intelligence
+		lineageTag: 4725acea-ff13-40ff-9714-7a4d0fc497b8
 
 	measure 'Open Purchase Orders' = CALCULATE([Purchase Orders], 'Fact Procurement'[Is Order Finalized] = FALSE())
 		formatString: #,##0
 		displayFolder: 09 Procurement Intelligence
+		lineageTag: 0f472d93-8848-45d9-80a4-07bf644249c7
 
 	measure 'Purchase Order Completion %' = DIVIDE([Finalized Purchase Orders], [Purchase Orders])
 		formatString: 0.0%
 		displayFolder: 09 Procurement Intelligence
+		lineageTag: 039d6de0-1dd1-417c-b0bc-74a76445fc0d
 
 	measure 'Receipt Shortfall Lines' = CALCULATE(COUNTROWS('Fact Procurement'), FILTER('Fact Procurement', 'Fact Procurement'[Outstanding Quantity] > 0))
 		formatString: #,##0
 		displayFolder: 09 Procurement Intelligence
+		lineageTag: 173be2ee-8c46-4150-a535-910ff5817a8f
 
 	measure 'Receipt Shortfall Line %' = DIVIDE([Receipt Shortfall Lines], [Procurement Lines])
 		formatString: 0.0%
 		displayFolder: 09 Procurement Intelligence
+		lineageTag: b70506fc-18bb-4c6b-b9d9-c070486fc793
 
 	measure 'Suppliers with Outstanding Qty' = CALCULATE(DISTINCTCOUNT('Fact Procurement'[Supplier Key]), FILTER('Fact Procurement', 'Fact Procurement'[Outstanding Quantity] > 0))
 		formatString: #,##0
 		displayFolder: 09 Procurement Intelligence
+		lineageTag: c7d43e31-bb36-45f5-ad72-027282e2a484
 
 	measure 'Outstanding Quantity %' = DIVIDE([Outstanding Quantity], [Ordered Quantity])
 		formatString: 0.00%
 		displayFolder: 09 Procurement Intelligence
+		lineageTag: 29c35885-9f6e-4dc7-9af1-26ebaa6bb457
 
 	measure 'Average Expected Lead Time Days' = DIVIDE(SUMX('Fact Procurement', 'Fact Procurement'[Ordered Quantity] * RELATED('Dim Stock Item'[Lead Time Days])), [Ordered Quantity])
 		formatString: 0.0
 		displayFolder: 09 Procurement Intelligence
+		lineageTag: 65f06a39-3e8f-471e-8a3d-50424eb356d1
 
 	measure 'Over Received Quantity' = SUMX('Fact Procurement', MAX('Fact Procurement'[Received Quantity] - 'Fact Procurement'[Ordered Quantity], 0))
 		formatString: #,##0
 		displayFolder: 09 Procurement Intelligence
+		lineageTag: d2f6886c-1bb2-4b5a-b23d-823b2f86bd81
 
 	measure 'Not Received Lines' = CALCULATE([Procurement Lines], 'Fact Procurement'[Receipt Status] = "Not Received")
 		formatString: #,##0
 		displayFolder: 09 Procurement Intelligence
+		lineageTag: 92b59d99-a1eb-4f6c-ab68-e08ebe3340d8
 
 	measure 'Partially Received Lines' = CALCULATE([Procurement Lines], 'Fact Procurement'[Receipt Status] = "Partially Received")
 		formatString: #,##0
 		displayFolder: 09 Procurement Intelligence
+		lineageTag: 237a4be5-6972-4f93-a014-8865c69bff2b
 
 	measure 'Top 10 Supplier Ordered Quantity' = VAR SupplierRank = RANKX(ALLSELECTED('Dim Supplier'[Supplier]), [Ordered Quantity], , DESC, DENSE) RETURN IF(SupplierRank <= 10, [Ordered Quantity])
 		formatString: #,##0
 		displayFolder: 09 Procurement Intelligence
+		lineageTag: 99329151-1035-41d6-803d-996769869b2b
 
 	measure 'Top 10 Supplier Outstanding Quantity' = VAR SupplierRank = RANKX(ALLSELECTED('Dim Supplier'[Supplier]), [Outstanding Quantity], , DESC, DENSE) RETURN IF(SupplierRank <= 10 && [Outstanding Quantity] > 0, [Outstanding Quantity])
 		formatString: #,##0
 		displayFolder: 09 Procurement Intelligence
+		lineageTag: 3e341e3d-1a4b-4904-ab8d-6a82c81d859a
 
 	measure 'Top 10 Product Outstanding Quantity' = VAR ProductRank = RANKX(ALLSELECTED('Dim Stock Item'[SKU Label]), [Outstanding Quantity], , DESC, DENSE) RETURN IF(ProductRank <= 10 && [Outstanding Quantity] > 0, [Outstanding Quantity])
 		formatString: #,##0
 		displayFolder: 09 Procurement Intelligence
-
+		lineageTag: ca6d0c25-66c3-457a-bee6-4826cbef8d37
 
 	measure 'Picked Lines' = SUM('Fact Order Fulfillment'[Is Picked])
 		formatString: #,##0
 		displayFolder: 10 Fulfillment Intelligence
+		lineageTag: 85f05821-de88-41fe-8744-d2dac7590762
 
 	measure 'Pick Completion %' = DIVIDE([Picked Lines], [Order Lines])
 		formatString: 0.0%
 		displayFolder: 10 Fulfillment Intelligence
+		lineageTag: 782b02ad-ecde-4cc0-86f4-e1b4642e8c46
 
 	measure 'Backordered Units' = SUM('Fact Order Fulfillment'[Backordered Quantity])
 		formatString: #,##0
 		displayFolder: 10 Fulfillment Intelligence
+		lineageTag: 89ea1458-3e3c-4fad-96f3-13ec4ef37812
 
 	measure 'Backordered Orders' = CALCULATE(DISTINCTCOUNT('Fact Order Fulfillment'[WWI Order ID]), 'Fact Order Fulfillment'[Is Backordered] = 1)
 		formatString: #,##0
 		displayFolder: 10 Fulfillment Intelligence
+		lineageTag: 0f72fae9-0a64-49be-9f7b-67c109c306fe
 
 	measure 'Backordered Order %' = DIVIDE([Backordered Orders], [Total Orders])
 		formatString: 0.0%
 		displayFolder: 10 Fulfillment Intelligence
+		lineageTag: 16cedfb0-9185-4b36-a3a3-821577f2d767
 
 	measure 'Backorder Unit Rate %' = DIVIDE([Backordered Units], [Ordered Units])
 		formatString: 0.0%
 		displayFolder: 10 Fulfillment Intelligence
+		lineageTag: 6ab6726c-5883-4ac7-81f3-7c0f424afde6
 
 	measure 'Same Day Pick Lines' = CALCULATE([Order Lines], 'Fact Order Fulfillment'[Picking Speed Category] = "Same Day")
 		formatString: #,##0
 		displayFolder: 10 Fulfillment Intelligence
+		lineageTag: f914f5c3-311f-4520-b010-9f70d1437a90
 
 	measure 'Next Day Pick Lines' = CALCULATE([Order Lines], 'Fact Order Fulfillment'[Picking Speed Category] = "Next Day")
 		formatString: #,##0
 		displayFolder: 10 Fulfillment Intelligence
+		lineageTag: 4f1f1351-da54-4a24-a39f-051447955755
 
 	measure '2+ Day Pick Lines' = CALCULATE([Order Lines], 'Fact Order Fulfillment'[Picking Speed Category] = "2+ Days")
 		formatString: #,##0
 		displayFolder: 10 Fulfillment Intelligence
+		lineageTag: 8039f8d0-bf88-41c6-8c83-f0ac540a07d8
 
 	measure 'Same Day Pick %' = DIVIDE([Same Day Pick Lines], [Picked Lines])
 		formatString: 0.0%
 		displayFolder: 10 Fulfillment Intelligence
+		lineageTag: b7856f37-1746-40bf-99f2-125c8a4899df
 
 	measure 'Picked Orders by Picker' = CALCULATE([Total Orders], USERELATIONSHIP('Dim Employee'[Employee Key], 'Fact Order Fulfillment'[Picker Key]))
 		formatString: #,##0
 		displayFolder: 10 Fulfillment Intelligence
+		lineageTag: 3241e8e6-e316-400e-9467-a5175fdde15d
 
 	measure 'Top 10 Product Backordered Units' = VAR Rnk = RANKX(ALLSELECTED('Dim Stock Item'[SKU Label]), [Backordered Units], , DESC, DENSE) RETURN IF(Rnk <= 10 && [Backordered Units] > 0, [Backordered Units])
 		formatString: #,##0
 		displayFolder: 10 Fulfillment Intelligence
+		lineageTag: 06953573-339c-4f26-b16a-cb66c11039c7
 
 	measure 'Top 10 Customer Backordered Units' = VAR CurrentCustomer = SELECTEDVALUE('Dim Customer'[Customer]) VAR Rnk = RANKX(FILTER(ALLSELECTED('Dim Customer'[Customer]), 'Dim Customer'[Customer] <> "Unknown" && NOT ISBLANK('Dim Customer'[Customer])), [Backordered Units], , DESC, DENSE) RETURN IF(CurrentCustomer <> "Unknown" && NOT ISBLANK(CurrentCustomer) && Rnk <= 10 && [Backordered Units] > 0, [Backordered Units])
 		formatString: #,##0
 		displayFolder: 10 Fulfillment Intelligence
+		lineageTag: 5bf88a21-8fab-424c-b9de-e6f483edb0ad
 
 	measure 'Top 10 City Backordered Units' = VAR Rnk = RANKX(ALLSELECTED('Dim City'[City]), [Backordered Units], , DESC, DENSE) RETURN IF(Rnk <= 10 && [Backordered Units] > 0, [Backordered Units])
 		formatString: #,##0
 		displayFolder: 10 Fulfillment Intelligence
+		lineageTag: a28ee896-3fe8-43aa-9f32-f12a852cf410
 
 	measure 'Top 10 State Backordered Units' = VAR CurrentState = SELECTEDVALUE('Dim City'[State Province]) VAR Rnk = RANKX(FILTER(ALLSELECTED('Dim City'[State Province]), NOT ISBLANK('Dim City'[State Province])), [Backordered Units], , DESC, DENSE) RETURN IF(NOT ISBLANK(CurrentState) && Rnk <= 10 && [Backordered Units] > 0, [Backordered Units])
 		formatString: #,##0
 		displayFolder: 10 Fulfillment Intelligence
+		lineageTag: 64eb38fc-3117-479d-a032-ebfbfd0224dd
 
 	measure 'Top 10 Picker Orders' = VAR CurrentEmployee = SELECTEDVALUE('Dim Employee'[Employee]) VAR Rnk = RANKX(FILTER(ALLSELECTED('Dim Employee'[Employee]), 'Dim Employee'[Employee] <> "Unknown" && NOT ISBLANK('Dim Employee'[Employee])), [Picked Orders by Picker], , DESC, DENSE) RETURN IF(CurrentEmployee <> "Unknown" && NOT ISBLANK(CurrentEmployee) && Rnk <= 10, [Picked Orders by Picker])
 		formatString: #,##0
 		displayFolder: 10 Fulfillment Intelligence
+		lineageTag: e638dd2d-0287-46b6-8e27-d3a71e917728
 
 	measure 'Average Revenue per Invoice' = DIVIDE([Total Revenue], [Total Invoices])
 		formatString: $#,##0.00
 		displayFolder: 11 Sales & Profitability
+		lineageTag: 6903578d-a28b-401d-89f3-f557bd5b44fa
 
 	measure 'Revenue per Unit' = DIVIDE([Total Revenue], [Units Sold])
 		formatString: $#,##0.00
 		displayFolder: 11 Sales & Profitability
+		lineageTag: 02497633-6076-4ece-8683-6d0b51a0c21e
 
 	measure 'Profit per Unit' = DIVIDE([Total Profit], [Units Sold])
 		formatString: $#,##0.00
 		displayFolder: 11 Sales & Profitability
+		lineageTag: e9ccaf79-46e4-489e-a5b0-5f2d2468330f
 
 	measure 'Sales Lines' = COUNTROWS('Fact Sales Demand')
 		formatString: #,##0
 		displayFolder: 11 Sales & Profitability
+		lineageTag: 3291155f-77db-4683-83fc-49eb434c977d
 
 	measure 'Loss Making Lines' = CALCULATE([Sales Lines], 'Fact Sales Demand'[Is Loss Making] = 1)
 		formatString: #,##0
 		displayFolder: 11 Sales & Profitability
+		lineageTag: 1bc1a972-cdbc-47a4-a6c6-5ec2a9425ecc
 
 	measure 'Loss Making Line %' = DIVIDE([Loss Making Lines], [Sales Lines])
 		formatString: 0.0%
 		displayFolder: 11 Sales & Profitability
+		lineageTag: 6c6431af-e98b-41d4-81ad-b1ef1921860a
 
 	measure 'Loss Making Revenue' = CALCULATE([Total Revenue], 'Fact Sales Demand'[Is Loss Making] = 1)
 		formatString: $#,##0.00
 		displayFolder: 11 Sales & Profitability
+		lineageTag: 861ae591-c6fe-497a-8c9b-d5ae167a0482
 
 	measure 'Top 10 Product Revenue' = VAR Rnk = RANKX(ALLSELECTED('Dim Stock Item'[SKU Label]), [Total Revenue], , DESC, DENSE) RETURN IF(Rnk <= 10, [Total Revenue])
 		formatString: $#,##0.00
 		displayFolder: 11 Sales & Profitability
+		lineageTag: c7db3b0e-8ace-4e7c-8545-fa9907c5bcb0
 
 	measure 'Top 10 Product Profit' = VAR Rnk = RANKX(ALLSELECTED('Dim Stock Item'[SKU Label]), [Total Profit], , DESC, DENSE) RETURN IF(Rnk <= 10, [Total Profit])
 		formatString: $#,##0.00
 		displayFolder: 11 Sales & Profitability
+		lineageTag: 3b3f7ba6-6da1-428b-a752-395b736771c2
 
 	measure 'Top 10 Customer Revenue' = VAR CurrentCustomer = SELECTEDVALUE('Dim Customer'[Customer]) VAR Rnk = RANKX(FILTER(ALLSELECTED('Dim Customer'[Customer]), 'Dim Customer'[Customer] <> "Unknown" && NOT ISBLANK('Dim Customer'[Customer])), [Total Revenue], , DESC, DENSE) RETURN IF(CurrentCustomer <> "Unknown" && NOT ISBLANK(CurrentCustomer) && Rnk <= 10, [Total Revenue])
 		formatString: $#,##0.00
 		displayFolder: 11 Sales & Profitability
+		lineageTag: b95e7a98-7f9e-41cb-9dc5-dc18dbda7b84
 
 	measure 'Top 10 Customer Profit' = VAR CurrentCustomer = SELECTEDVALUE('Dim Customer'[Customer]) VAR Rnk = RANKX(FILTER(ALLSELECTED('Dim Customer'[Customer]), 'Dim Customer'[Customer] <> "Unknown" && NOT ISBLANK('Dim Customer'[Customer])), [Total Profit], , DESC, DENSE) RETURN IF(CurrentCustomer <> "Unknown" && NOT ISBLANK(CurrentCustomer) && Rnk <= 10, [Total Profit])
 		formatString: $#,##0.00
 		displayFolder: 11 Sales & Profitability
+		lineageTag: 750afd6a-740f-4684-bc47-4d8a61fe8b9f
 
 	measure 'Top 10 State Profit' = VAR Rnk = RANKX(ALLSELECTED('Dim City'[State Province]), [Total Profit], , DESC, DENSE) RETURN IF(Rnk <= 10, [Total Profit])
 		formatString: $#,##0.00
 		displayFolder: 11 Sales & Profitability
+		lineageTag: f3b99894-9728-45b1-b167-8cca29f9c724
 
 	measure 'Top 10 Salesperson Revenue' = VAR Rnk = RANKX(ALLSELECTED('Dim Employee'[Employee]), [Total Revenue], , DESC, DENSE) RETURN IF(Rnk <= 10, [Total Revenue])
 		formatString: $#,##0.00
 		displayFolder: 11 Sales & Profitability
+		lineageTag: 814350fe-63cc-418f-8453-9c87e205d7d4
 
 	measure 'Stock In %' = DIVIDE([Stock In Quantity], [Stock Movement Volume])
 		formatString: 0.0%
 		displayFolder: 12 Stock Movement Intelligence
+		lineageTag: 5f6b243a-5b6b-4f7b-b09c-8608ff5756bb
 
 	measure 'Stock Out %' = DIVIDE([Stock Out Quantity], [Stock Movement Volume])
 		formatString: 0.0%
 		displayFolder: 12 Stock Movement Intelligence
+		lineageTag: 95a490be-7c6d-4ab6-a7e6-b0335e3f6ade
 
 	measure 'Net Outflow Quantity' = MAX([Stock Out Quantity] - [Stock In Quantity], 0)
 		formatString: #,##0
 		displayFolder: 12 Stock Movement Intelligence
+		lineageTag: 2785814b-914b-4a6f-b554-eee71c24e0c0
 
 	measure 'Top 10 Product Net Outflow' = VAR Rnk = RANKX(ALLSELECTED('Dim Stock Item'[SKU Label]), [Net Outflow Quantity], , DESC, DENSE) RETURN IF(Rnk <= 10 && [Net Outflow Quantity] > 0, [Net Outflow Quantity])
 		formatString: #,##0
 		displayFolder: 12 Stock Movement Intelligence
+		lineageTag: de5c85f5-5646-4c2a-9e07-7ed5d5b52f5c
 
 	measure 'Top 10 Transaction Type Volume' = VAR Rnk = RANKX(ALLSELECTED('Dim Transaction Type'[Transaction Type]), [Stock Movement Volume], , DESC, DENSE) RETURN IF(Rnk <= 10, [Stock Movement Volume])
 		formatString: #,##0
 		displayFolder: 12 Stock Movement Intelligence
+		lineageTag: bda06c00-777f-4278-96d5-e2142d148eea
 
 	measure 'Top 10 Supplier Stock In' = VAR Rnk = RANKX(ALLSELECTED('Dim Supplier'[Supplier]), [Stock In Quantity], , DESC, DENSE) RETURN IF(Rnk <= 10 && [Stock In Quantity] > 0, [Stock In Quantity])
 		formatString: #,##0
 		displayFolder: 12 Stock Movement Intelligence
+		lineageTag: dd02c157-62c9-474e-8944-a3545e96e634
 
 	measure 'Top 10 Customer Stock Out' = VAR CurrentCustomer = SELECTEDVALUE('Dim Customer'[Customer]) VAR Rnk = RANKX(FILTER(ALLSELECTED('Dim Customer'[Customer]), 'Dim Customer'[Customer] <> "Unknown" && NOT ISBLANK('Dim Customer'[Customer])), [Stock Out Quantity], , DESC, DENSE) RETURN IF(CurrentCustomer <> "Unknown" && NOT ISBLANK(CurrentCustomer) && Rnk <= 10 && [Stock Out Quantity] > 0, [Stock Out Quantity])
 		formatString: #,##0
 		displayFolder: 12 Stock Movement Intelligence
+		lineageTag: 34276ce3-e1d8-4cd8-9922-9e15acb958d5
 
 	measure 'Latest Sales Date' = MAX('Fact Sales Demand'[Invoice Date Key])
 		formatString: yyyy-mm-dd
 		displayFolder: 13 Model QA
+		lineageTag: f95213fc-0eb6-483f-951d-d5a285c6c242
 
 	measure 'Latest Order Date' = MAX('Fact Order Fulfillment'[Order Date Key])
 		formatString: yyyy-mm-dd
 		displayFolder: 13 Model QA
+		lineageTag: 0d87b204-c9aa-4891-bace-e51ca4230d18
 
 	measure 'Latest Movement Date' = MAX('Fact Stock Movement'[Date Key])
 		formatString: yyyy-mm-dd
 		displayFolder: 13 Model QA
+		lineageTag: 16437cd0-9371-4792-8d85-23dc05e4cbe4
 
 	column Dummy
 		isHidden
-		sourceColumn: [Dummy]
+		lineageTag: 7597a2dd-aca9-4041-acfe-6efb353fe298
 		summarizeBy: none
+		sourceColumn: [Dummy]
 
 	partition _Measures = calculated
 		mode: import
 		source = ROW("Dummy", BLANK())
+

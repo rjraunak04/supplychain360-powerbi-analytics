@@ -3,8 +3,8 @@ table 'Dim Transaction Type'
 
 	column 'Transaction Type Key'
 		dataType: int64
-		isKey
 		isHidden
+		isKey
 		formatString: 0
 		lineageTag: 922893ac-bea0-4247-9b76-fdfc1b7c1412
 		summarizeBy: none
@@ -24,8 +24,8 @@ table 'Dim Transaction Type'
 
 	column 'Transaction Type'
 		dataType: string
-		isDefaultLabel
 		lineageTag: 91b49477-2141-4db6-9efe-81ee8d90f319
+		isDefaultLabel
 		summarizeBy: none
 		sourceColumn: Transaction Type
 

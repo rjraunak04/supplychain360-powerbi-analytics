@@ -1,0 +1,23 @@
+expression ServerName = "localhost" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 33db66ca-ac84-4980-b0f5-7ea6f70becd1
+
+	annotation PBI_ResultType = Text
+
+expression DatabaseName = "WideWorldImportersDW" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: fe94b94b-b541-4aed-8c83-207b68827ae4
+
+	annotation PBI_ResultType = Text
+
+expression EnvironmentName = "DEV" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: c34d1823-500b-4dde-a63e-8a9ecd27ebb4
+
+expression RangeStart = #datetime(2013, 1, 1, 0, 0, 0) meta [IsParameterQuery=true, Type="DateTime", IsParameterQueryRequired=true]
+	lineageTag: 94663d31-02a0-45f1-b60b-bb06798fbc89
+
+	annotation PBI_ResultType = DateTime
+
+expression RangeEnd = #datetime(2017, 1, 1, 0, 0, 0) meta [IsParameterQuery=true, Type="DateTime", IsParameterQueryRequired=true]
+	lineageTag: 241ab1d7-181e-4846-9e1d-6d106dc563c1
+
+	annotation PBI_ResultType = DateTime
+

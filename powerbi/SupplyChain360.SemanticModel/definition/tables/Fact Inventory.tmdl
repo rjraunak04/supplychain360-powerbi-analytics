@@ -116,6 +116,7 @@ table 'Fact Inventory'
 		dataType: int64
 		isHidden
 		formatString: 0
+		lineageTag: b55cf537-a1d5-4ed8-a385-792d0bd22ef4
 		summarizeBy: none
 		sourceColumn: Inventory Status Sort
 

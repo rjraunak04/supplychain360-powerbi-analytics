@@ -3,8 +3,8 @@ table 'Dim Stock Item'
 
 	column 'Stock Item Key'
 		dataType: int64
-		isKey
 		isHidden
+		isKey
 		formatString: 0
 		lineageTag: e1f3b8ef-2d1d-429d-abbe-266f8b2a56f6
 		summarizeBy: none
@@ -24,8 +24,8 @@ table 'Dim Stock Item'
 
 	column 'Stock Item'
 		dataType: string
-		isDefaultLabel
 		lineageTag: 12120ab9-e959-4735-b862-8cc9f88239af
+		isDefaultLabel
 		summarizeBy: none
 		sourceColumn: Stock Item
 
@@ -178,6 +178,7 @@ table 'Dim Stock Item'
 
 	column 'SKU Label'
 		dataType: string
+		lineageTag: 9267502b-b526-4b74-98b2-f3607abe489e
 		summarizeBy: none
 		sourceColumn: SKU Label
 
@@ -187,6 +188,7 @@ table 'Dim Stock Item'
 		dataType: boolean
 		isHidden
 		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 2fbdb800-db52-4372-b35d-742df9777e96
 		summarizeBy: none
 		sourceColumn: Is Current
 

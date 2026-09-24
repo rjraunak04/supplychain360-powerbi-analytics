@@ -1,19 +1,23 @@
 /// Demo dynamic RLS mapping table. Replace sample UPNs with governed production mappings before deployment.
 table 'Security User Access'
 	isHidden
+	lineageTag: 60142f76-f53b-4667-baa8-e260525467f8
 
 	column UserPrincipalName
 		dataType: string
+		lineageTag: 85c15a24-f6f4-463c-af6f-abfb5dc1fedf
 		summarizeBy: none
 		sourceColumn: UserPrincipalName
 
 	column 'State Province'
 		dataType: string
+		lineageTag: 920011f1-5b22-4086-b8a0-824f643a92b6
 		summarizeBy: none
 		sourceColumn: State Province
 
 	column AccessLevel
 		dataType: string
+		lineageTag: 91da8fa3-2999-4e6c-93f3-af7cf02b6a73
 		summarizeBy: none
 		sourceColumn: AccessLevel
 
@@ -34,3 +38,4 @@ table 'Security User Access'
 				    Source
 
 	annotation PBI_ResultType = Table
+

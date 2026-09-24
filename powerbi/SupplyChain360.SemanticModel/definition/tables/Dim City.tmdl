@@ -3,8 +3,8 @@ table 'Dim City'
 
 	column 'City Key'
 		dataType: int64
-		isKey
 		isHidden
+		isKey
 		formatString: 0
 		lineageTag: 44c01178-c3ee-4f2f-bde5-0c850053544d
 		summarizeBy: none
@@ -24,9 +24,9 @@ table 'Dim City'
 
 	column City
 		dataType: string
+		lineageTag: ce11e843-2dca-41ef-ae82-e9d6e0374ece
 		dataCategory: City
 		isDefaultLabel
-		lineageTag: ce11e843-2dca-41ef-ae82-e9d6e0374ece
 		summarizeBy: none
 		sourceColumn: City
 
@@ -34,8 +34,8 @@ table 'Dim City'
 
 	column 'State Province'
 		dataType: string
-		dataCategory: StateOrProvince
 		lineageTag: 15d1a65e-5a9b-4eb8-80f3-f63e7753ff2a
+		dataCategory: StateOrProvince
 		summarizeBy: none
 		sourceColumn: State Province
 
@@ -43,8 +43,8 @@ table 'Dim City'
 
 	column Country
 		dataType: string
-		dataCategory: Country
 		lineageTag: 788fb87a-2570-4378-887f-4a8b9074010c
+		dataCategory: Country
 		summarizeBy: none
 		sourceColumn: Country
 
@@ -52,8 +52,8 @@ table 'Dim City'
 
 	column Continent
 		dataType: string
-		dataCategory: Continent
 		lineageTag: 7c437c09-ee7c-4ff6-8be7-2036c7be6baa
+		dataCategory: Continent
 		summarizeBy: none
 		sourceColumn: Continent
 

@@ -35,6 +35,7 @@ table 'Fact Order Fulfillment'
 		dataType: int64
 		isHidden
 		formatString: 0
+		lineageTag: 80674742-c67c-4912-aaa3-6359a7bc5dcf
 		summarizeBy: none
 		sourceColumn: City Key
 
@@ -44,6 +45,7 @@ table 'Fact Order Fulfillment'
 		dataType: int64
 		isHidden
 		formatString: 0
+		lineageTag: 722fa423-3af3-4740-8f57-f7aceb45a10e
 		summarizeBy: none
 		sourceColumn: Salesperson Key
 
@@ -53,11 +55,11 @@ table 'Fact Order Fulfillment'
 		dataType: int64
 		isHidden
 		formatString: 0
+		lineageTag: 215e242b-06bc-4572-88fd-842aaee306c9
 		summarizeBy: none
 		sourceColumn: Picker Key
 
 		annotation SummarizationSetBy = Automatic
-
 
 	column 'Order Date Key'
 		dataType: dateTime
@@ -68,8 +70,6 @@ table 'Fact Order Fulfillment'
 		sourceColumn: Order Date Key
 
 		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
 
 	column 'Picked Date Key'
 		dataType: dateTime
@@ -171,10 +171,10 @@ table 'Fact Order Fulfillment'
 
 		annotation SummarizationSetBy = Automatic
 
-
 	column 'Backordered Quantity'
 		dataType: int64
 		formatString: 0
+		lineageTag: 72026752-5019-4a31-8670-1fe753659431
 		summarizeBy: sum
 		sourceColumn: Backordered Quantity
 
@@ -183,11 +183,11 @@ table 'Fact Order Fulfillment'
 	column 'Is Picked'
 		dataType: int64
 		formatString: 0
+		lineageTag: ccd02f28-bfd8-4120-a882-c6351d681e6c
 		summarizeBy: sum
 		sourceColumn: Is Picked
 
 		annotation SummarizationSetBy = Automatic
-
 
 	column 'Days To Pick'
 		dataType: int64
@@ -208,11 +208,11 @@ table 'Fact Order Fulfillment'
 
 	column 'Picking Speed Category'
 		dataType: string
+		lineageTag: 88eedfa7-301d-4a4c-ab83-edd9768c38b5
 		summarizeBy: none
 		sourceColumn: Picking Speed Category
 
 		annotation SummarizationSetBy = Automatic
-
 
 	partition 'Fact Order Fulfillment' = m
 		mode: import
@@ -235,3 +235,4 @@ table 'Fact Order Fulfillment'
 	annotation PBI_NavigationStepName = Navigation
 
 	annotation PBI_ResultType = Table
+
