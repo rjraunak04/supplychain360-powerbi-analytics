@@ -149,7 +149,14 @@ def main() -> int:
                 visual_path = visual_dir / "visual.json"
                 check(visual_path.exists(), f"Visual folder missing visual.json: {visual_dir.relative_to(ROOT)}")
                 visual = load_json(visual_path)
-                check(visual.get("$schema") == VISUAL_SCHEMA, f"Visual {visual_id} has unexpected schema")
+                visual_schema = visual.get("$schema", "")
+                check(
+                    visual_schema.startswith(
+                        "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/"
+                    )
+                    and visual_schema.endswith("/schema.json"),
+                    f"Visual {visual_id} has unexpected schema",
+                )
                 check(visual.get("name") == visual_id, f"Visual name does not match folder: {visual_id}")
                 check(isinstance(visual.get("position"), dict), f"Visual {visual_id} missing position")
                 if "visual" in visual:
@@ -186,12 +193,19 @@ def main() -> int:
     check(len(table_files) >= 14, f"Expected semantic tables including security table; found {len(table_files)}")
 
     model_text = read(MODEL_DEF / "model.tmdl")
+    expressions_text = read(MODEL_DEF / "expressions.tmdl")
+    roles_dir = MODEL_DEF / "roles"
+    executive_role_text = read(roles_dir / "Executive.tmdl")
+    regional_role_text = read(roles_dir / "Regional Manager.tmdl")
     for param in ("ServerName", "DatabaseName", "EnvironmentName", "RangeStart", "RangeEnd"):
-        check(f"expression {param}" in model_text, f"Missing model parameter: {param}")
+        check(f"expression {param}" in expressions_text, f"Missing model parameter: {param}")
 
-    check("role Executive" in model_text, "Missing Executive RLS role")
-    check("role 'Regional Manager'" in model_text, "Missing Regional Manager RLS role")
-    check("USERPRINCIPALNAME()" in model_text, "Dynamic RLS must use USERPRINCIPALNAME()")
+    check("ref role Executive" in model_text and "role Executive" in executive_role_text, "Missing Executive RLS role")
+    check(
+        "ref role 'Regional Manager'" in model_text and "role 'Regional Manager'" in regional_role_text,
+        "Missing Regional Manager RLS role",
+    )
+    check("USERPRINCIPALNAME()" in regional_role_text, "Dynamic RLS must use USERPRINCIPALNAME()")
     check("ref table 'Security User Access'" in model_text, "Security mapping table is not referenced by model")
 
     hardcoded_source = []
