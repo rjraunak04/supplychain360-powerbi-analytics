@@ -58,34 +58,34 @@ relationship 73e2b7d3-f6f5-584d-8f4d-9ff21ceaf5b9
 relationship 7db1980d-5952-5da6-a8ab-6a5ad025c8ca
 	joinOnDateBehavior: datePartOnly
 	fromColumn: 'Fact Procurement'.'Date Key'
-	toColumn: 'Dim Date'.'Date'
+	toColumn: 'Dim Date'.Date
 
 relationship a974ed35-36a8-50d9-ae59-493c92e6210f
 	joinOnDateBehavior: datePartOnly
 	fromColumn: 'Fact Stock Movement'.'Date Key'
-	toColumn: 'Dim Date'.'Date'
+	toColumn: 'Dim Date'.Date
 
 relationship 73333b08-f680-5d6d-b743-f490c7f8ba1f
 	joinOnDateBehavior: datePartOnly
 	fromColumn: 'Fact Order Fulfillment'.'Order Date Key'
-	toColumn: 'Dim Date'.'Date'
+	toColumn: 'Dim Date'.Date
 
 relationship 7eeacbeb-031b-5db0-9c12-fcae612a5bbb
 	isActive: false
 	joinOnDateBehavior: datePartOnly
 	fromColumn: 'Fact Order Fulfillment'.'Picked Date Key'
-	toColumn: 'Dim Date'.'Date'
+	toColumn: 'Dim Date'.Date
 
 relationship 480195dc-52c3-5e7b-ba34-7daa25e0db19
 	joinOnDateBehavior: datePartOnly
 	fromColumn: 'Fact Sales Demand'.'Invoice Date Key'
-	toColumn: 'Dim Date'.'Date'
+	toColumn: 'Dim Date'.Date
 
 relationship 3cef7451-c59b-5239-91be-1bb487fceca5
 	isActive: false
 	joinOnDateBehavior: datePartOnly
 	fromColumn: 'Fact Sales Demand'.'Delivery Date Key'
-	toColumn: 'Dim Date'.'Date'
+	toColumn: 'Dim Date'.Date
 
 relationship b9c1b3fc4dcbd0a2a8af
 	fromColumn: 'Fact Order Fulfillment'.'City Key'
@@ -99,3 +99,4 @@ relationship 6c41964b6e479dc7f438
 	isActive: false
 	fromColumn: 'Fact Order Fulfillment'.'Picker Key'
 	toColumn: 'Dim Employee'.'Employee Key'
+

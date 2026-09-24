@@ -3,8 +3,8 @@ table 'Dim Supplier'
 
 	column 'Supplier Key'
 		dataType: int64
-		isKey
 		isHidden
+		isKey
 		formatString: 0
 		lineageTag: 4a83941e-7533-471e-a44e-921acb1fc67e
 		summarizeBy: none
@@ -24,8 +24,8 @@ table 'Dim Supplier'
 
 	column Supplier
 		dataType: string
-		isDefaultLabel
 		lineageTag: 0561d4f5-d7d3-4540-9525-79a1e13b8b7b
+		isDefaultLabel
 		summarizeBy: none
 		sourceColumn: Supplier
 

@@ -1,0 +1,19 @@
+role 'Regional Manager'
+	modelPermission: read
+
+	tablePermission 'Dim City' =
+			VAR __UPN = LOWER(USERPRINCIPALNAME())
+			RETURN
+				COUNTROWS(
+					FILTER(
+						'Security User Access',
+						LOWER('Security User Access'[UserPrincipalName]) = __UPN
+							&& (
+								'Security User Access'[State Province] = 'Dim City'[State Province]
+								|| 'Security User Access'[State Province] = "*"
+							)
+					)
+				) > 0
+
+	annotation PBI_Id = 8d8fd46063db4e23ac46206bc18b4e7a
+

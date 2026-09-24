@@ -9,7 +9,7 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 0
 
-annotation PBI_QueryOrder = ["Fact Inventory","Fact Order Fulfillment","Fact Procurement","Fact Sales Demand","Fact Stock Movement","Dim City","Dim Customer","Dim Date","Dim Employee","Dim Stock Item","Dim Supplier","Dim Transaction Type","Security User Access"]
+annotation PBI_QueryOrder = ["Fact Inventory","Fact Order Fulfillment","Fact Procurement","Fact Sales Demand","Fact Stock Movement","Dim City","Dim Customer","Dim Date","Dim Employee","Dim Stock Item","Dim Supplier","Dim Transaction Type","Security User Access","ServerName","DatabaseName","EnvironmentName","RangeStart","RangeEnd"]
 
 annotation PBI_ProTooling = ["DevMode"]
 
@@ -28,32 +28,8 @@ ref table 'Dim Transaction Type'
 ref table _Measures
 ref table 'Security User Access'
 
+ref role Executive
+ref role 'Regional Manager'
 
 ref cultureInfo en-US
 
-
-expression ServerName = "localhost" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
-expression DatabaseName = "WideWorldImportersDW" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
-expression EnvironmentName = "DEV" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
-expression RangeStart = #datetime(2013, 1, 1, 0, 0, 0) meta [IsParameterQuery=true, Type="DateTime", IsParameterQueryRequired=true]
-expression RangeEnd = #datetime(2017, 1, 1, 0, 0, 0) meta [IsParameterQuery=true, Type="DateTime", IsParameterQueryRequired=true]
-
-role Executive
-	modelPermission: read
-
-role 'Regional Manager'
-	modelPermission: read
-
-	tablePermission 'Dim City' =
-			VAR __UPN = LOWER(USERPRINCIPALNAME())
-			RETURN
-				COUNTROWS(
-					FILTER(
-						'Security User Access',
-						LOWER('Security User Access'[UserPrincipalName]) = __UPN
-							&& (
-								'Security User Access'[State Province] = 'Dim City'[State Province]
-								|| 'Security User Access'[State Province] = "*"
-							)
-					)
-				) > 0

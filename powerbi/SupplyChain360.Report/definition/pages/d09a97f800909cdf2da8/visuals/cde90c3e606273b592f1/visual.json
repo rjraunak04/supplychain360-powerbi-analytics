@@ -20,7 +20,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "PASS criteria: Inventory QA Status = PASS; Inventory Key QA = 0; refresh completes without query errors; SQL validation scripts 01\u201308 reconcile headline KPIs; no broken relationships or visual field references.",
+                    "value": "PASS criteria: Inventory QA Status = PASS; Inventory Key QA = 0; refresh completes without query errors; SQL validation scripts 01–08 reconcile headline KPIs; no broken relationships or visual field references.",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
                       "fontSize": "10px",
