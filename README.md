@@ -83,6 +83,32 @@ The model uses one-to-many dimension-to-fact relationships, hidden technical key
 | 13 | Supplier 360 | Cross-domain supplier view |
 | 14 | Data Quality & Model QA | Reconciliation and acceptance checks |
 
+## Portfolio preview
+
+The report contains **14 analytical pages**. The recruiter-facing gallery highlights five representative views spanning executive decision support, inventory, procurement, cross-domain analysis and model QA.
+
+> Screenshots in `docs/screenshots/` are captured from the actual Power BI Desktop report. They are portfolio evidence, not mockups or generated dashboard images.
+
+### Executive Control Tower
+
+![SupplyChain360 Executive Control Tower](docs/screenshots/executive-overview.png)
+
+### Inventory Intelligence
+
+![SupplyChain360 Inventory Intelligence](docs/screenshots/inventory-intelligence.png)
+
+### Procurement & Supplier Performance
+
+![SupplyChain360 Procurement and Supplier Performance](docs/screenshots/procurement-supplier-performance.png)
+
+### Product 360
+
+![SupplyChain360 Product 360](docs/screenshots/product-360.png)
+
+### Data Quality & Model QA
+
+![SupplyChain360 Data Quality and Model QA](docs/screenshots/data-quality-model-qa.png)
+
 ## Engineering features
 
 - **SQL analytics layer** — reusable views for the five analytical domains
